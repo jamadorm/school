@@ -1,0 +1,70 @@
+{% extends 'Plantilla_base.html' %}
+
+{% block Titulo_Principal %} EDITAR CICLO ESCOLAR {% endblock Titulo_Principal %}
+
+{% block Titulo_Secundario %}
+
+<div class="row mb-4">
+  <div class="col-sm-10">
+    <h5 class="card-title"> Actualiza los datos deseados </h5>
+  </div>
+
+  <div class="col-sm-2 text-sm-left">
+    <a class="btn btn-light-primary text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro"
+            href="{% url 'listado_ciclos' %}">
+      <i class="ti ti-arrow-back-up me-2 fs-4"></i>Regresar al listado
+    </a>
+  </div>
+
+</div>
+
+
+
+
+{% endblock Titulo_Secundario %}
+
+{% block Contenido%}
+<form action="/actualizar_ciclo/" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" name="id" id="id_id" value="{{ ciclo.id }}" required readonly>
+                <label for="id_id">ID</label>
+            </div>
+        </div>
+
+        <div class="col-md-10">
+          <div class="form-floating mb-10">
+            <input type="text" class="form-control" name="ciclo_escolar" id="id_ciclo_escolar" value="{{ ciclo.ciclo_escolar }}" required>
+            <label for="id_ciclo_escolar">Ciclo Escolar</label>
+          </div>
+        </div>
+
+    </div>
+   <div class="row">
+    <div class="col-md-12">
+      <div class="form-floating mb-12">
+        <input type="text" class="form-control" name="comentarios" id="id_comentarios" value="{{ ciclo.comentarios }}" required>
+        <label for="id_comentarios">Detalle</label>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="d-md-flex align-items-center mt-3">
+        <div class="ms-auto mt-6 mt-md-0">
+          <button type="submit" class="btn btn-success font-medium rounded-pill px-3">
+            <div class="d-flex align-items-center">
+              <i class="ti ti-edit me-2 fs-6"></i>
+              Actualizar Registro
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</form>
+
+{% endblock Contenido%}

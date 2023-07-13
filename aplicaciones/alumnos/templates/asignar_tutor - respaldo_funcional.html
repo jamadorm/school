@@ -1,0 +1,222 @@
+{% extends 'Plantilla_base.html' %}
+
+{% block TitlePage %} CONTROL ESCOLAR - BUSCAR ALUMNO {% endblock TitlePage %}
+
+{% block headers %}
+    <!-- --------------------------------------------------- -->
+    <!-- Select2 -->
+    <!-- --------------------------------------------------- -->
+<link rel="stylesheet" href="/static/dist/libs/select2/dist/css/select2.min.css"
+      xmlns:son="http://www.w3.org/1999/xhtml" xmlns:son="http://www.w3.org/1999/xhtml">
+{% endblock headers %}
+
+{% block Titulo_Principal %} BUSCAR ALUMNO {% endblock Titulo_Principal %}
+
+{% block Titulo_Secundario %}
+
+<div class="row mb-4">
+  <div class="col-sm-10">
+    <h5 class="card-title"> Busque y seleccione </h5>
+  </div>
+
+  <div class="col-sm-2 text-sm-left">
+    <a class="btn btn-light-primary text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro"
+            href="{% url 'listado_alumnos' %}">
+      <i class="ti ti-arrow-back-up me-2 fs-4"></i>Regresar al listado
+    </a>
+  </div>
+
+</div>
+{% endblock Titulo_Secundario %}
+
+
+
+{% block Contenido%}
+
+
+<div class="row">
+    <div class="col-lg-6">
+      <div class="card shadow-none border">
+        <div class="card-body">
+          <h5 class="fw-semibold mb-4">ASIGNACIÓN DE TUTORES</h5>
+          <!--p class="mb-4">DATOS ACTUALES DEL ALUMNO</p-->
+            <form action="{% url 'tutor_alumno' %}"  method="POST">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-floating mb-3">
+                                <h6>Seleccione el Alumno</h6>
+                                <select onchange="CargarTutoresAsignados(this)" class="form-select select2" id="id_id_alumno" name="id_alumno" required style="width:100%; background-color: #a43636; border:3px;">
+                                    <option value="" disabled selected>Buscar Alumno</option>
+                                    {% for alumno in alumnos %}
+                                         <option value="{{alumno.id}}">{{alumno}}</option>
+                                    {% endfor %}
+                                </select>
+                          </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-floating mb-3">
+                                <h6>Seleccione el Tutor</h6>
+                                <select class="form-select select2" id="id_id_tutor" name="id_tutor" required style="width:100%;">
+                                    <option value="">Buscar Tutor(es)</option>
+                                    {% for tutor in tutores %}
+                                         <option value="{{tutor.id}}">{{tutor}}</option>
+                                    {% endfor %}
+                                </select>
+                          </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-floating mb-3">
+                                <h6>Ingresa el Parentesco</h6>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="ti ti-user-heart"></i></span>
+                                    <input type="text" class="form-control" name="parentesco" maxlength="50" required="" id="id_parentesco" placeholder="Parentesco con el alumno" >
+                                </div>
+                          </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <button type="submit" class="form-group btn btn-success"><i class="ti ti-search"></i> Asignar Tutor </button>
+                        </div>
+                    </div>
+
+                </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 ">
+      <div class="card shadow-none border">
+        <div class="card-body">
+              <h4 class="fw-semibold mb-3">Tutores Asignados</h4>
+
+              <div class="d-flex align-items-center">
+                  <div class="row">
+                      <div id="p_sin_tutores">...Seleccione algún alumno...</div>
+                          <div id="id_div" class="col-12 mb-1">
+
+                          </div>
+
+                  </div>
+
+              </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+{% endblock Contenido %}
+
+{% block scripts %}
+    <!-- ---------------------------------------------- -->
+    <!-- select2 page js files -->
+    <!-- ---------------------------------------------- -->
+
+    <script src="/static/dist/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/static/dist/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/static/dist/js/forms/select2.init.js"></script>
+
+    <!--script src="/static/dist/libs/jquery/dist/jquery.min.js"></script-->
+    <script language="JavaScript">
+        function CargarTutoresAsignados(element){
+            id_div.innerHTML ="";
+            id_alumno = id_id_alumno.options[id_id_alumno.selectedIndex].value;
+            //alert(id_alumno);
+
+            $.ajax(
+            {
+                type:"GET",
+                url: "{% url 'tutores_asignados' %}",
+                dataType: "json",
+                data:{
+                         id_alumno: id_alumno
+                },
+                success: function( data )
+                {
+                   //console.log(data);
+
+                   if (data.message == "Si existen tutores asignados")
+                    {
+                        p_sin_tutores.innerHTML="";
+                        let tutores=data.tutores;
+
+                        tutores.map(function(tutores) //Otra forma de hacer un ciclo mediante map
+
+                        {
+                            //console.log(tutores.id_tutor_id);
+                            id_tutor = tutores.id_tutor_id  //Estos vienene del modelo en Django "AlumnoTutores"
+                            alumno_id = tutores.id_alumno_id
+
+                                    $.ajax(
+                                        {
+                                            type:"GET",
+                                            url: "{% url 'detalles_tutor' %}",
+                                            dataType: "json",
+                                            data:{
+                                                     id: id_tutor,
+                                                     alumno_id: alumno_id
+                                            },
+                                            success: function( data )
+                                            {
+
+                                               //console.log(data);
+
+                                               var nombre_completo = data.tutor[0].nombre + ' ' + data.tutor[0].apellido_paterno + ' ' + data.tutor[0].apellido_materno;
+                                               //console.log("ID="+ data.tutor[0].id+" Nombress="+data.tutor[0].nombre);
+                                               //console.log(nombre_completo);
+
+                                               id_div.innerHTML = id_div.innerHTML + "<div class='col-12 mb-3'> \
+                                                                      <div class='d-flex align-items-center'> \
+                                                                            <img src='../../media/"+data.tutor[0].foto_perfil+ "' width='72' height='72' class='rounded-circle' style='margin-right:10px'> \
+                                                                            <div class='col-12'> \
+                                                                                <h6 class='fw-semibold fs-4 mb-0'>" + nombre_completo +" </h6> \
+                                                                                <p class='mb-0'>" + data.tutor[0].telefono + "</p> \
+                                                                                <p class='mb-0'>" + data.parentesco[0].parentesco + "</p> \
+                                                                            </div> \
+                                                                      </div> \
+                                                                  </div>";
+
+
+
+
+                                            }
+                                        })
+
+                        });
+
+                    }
+                    else if(data.message == "Not Found"){
+                        id_div.innerHTML = "";
+
+                        p_sin_tutores.innerHTML = "<div class='alert alert-danger' role='alert'> \
+                                                      <strong>Cuidado - </strong> Este alumno no tiene Tutor asignado. \
+                                                    </div>";
+
+                    }
+
+
+
+
+                }
+             })
+
+
+
+        }
+    </script>
+
+
+{% endblock scripts %}

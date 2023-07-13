@@ -1,0 +1,168 @@
+{% extends 'Plantilla_Tabla.html' %}
+
+{% block TitlePage %} CONTROL ESCOLAR - TUTORES {% endblock TitlePage %}
+
+{% block Nombre_Usuario %} Paulina Trejo {% endblock Nombre_Usuario %}
+
+{% block Puesto_Usuario %} Maestra {% endblock Puesto_Usuario %}
+
+{% block email %} paudamador@hotmail.com {% endblock email %}
+
+{% block Titulo_Principal %} LISTADO DE TUTORES{% endblock Titulo_Principal %}
+
+{% block Titulo_Secundario %}
+    {% if messages %}
+        {% for message in messages%}
+            <script language="JavaScript">
+                var mensaje = ""
+                mensaje = mensaje.concat("{{message}}");
+
+                if( mensaje == "lista_ciclos") {
+
+                }
+                else
+                    if( mensaje == "new") {
+                    Swal.fire({
+                          icon: 'success',
+                          title: '<i class="ti ti-device-floppy"></i>' + 'Registro Guardado',
+                          html: 'El registro se guardó correctamente.',
+                          timer: 3000,
+                          timerProgressBar: true,
+                          willClose: () => {
+
+                          }
+                        })
+                }
+                else
+                    if( mensaje == "edit") {
+                    Swal.fire({
+                          icon: 'success',
+                          title: '<i class="ti ti-edit"></i>' + 'Registro Actualizado',
+                          html: 'El registro se actualizó correctamente.',
+                          timer: 3000,
+                          timerProgressBar: true,
+                          willClose: () => {
+
+                          }
+                        })
+                }
+                else
+                    if( mensaje == "delete") {
+                        Swal.fire({
+                              icon: 'success',
+                              title: '<i class="ti ti-trash"></i>' + 'Registro Eliminado',
+                              html: 'El registro se eliminó correctamente.',
+                              timer: 2000,
+                              timerProgressBar: true,
+                              willClose: () => {
+
+                              }
+                            })
+                }
+            </script>
+
+        {% endfor %}
+    {% endif %}
+
+
+    <div class="row mb-4">
+      <div class="col-sm-9">
+        <h5 class="card-title"> Listado de Tutores </h5>
+      </div>
+
+      <div class="col-sm-3 text-right">
+        <a class="btn btn-light-success text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro"
+                href="{% url 'nuevo_tutor' %}">
+          <i class="ti ti-text-plus fs-6"></i>Nuevo Registro
+        </a>
+      </div>
+
+    </div>
+
+{% endblock Titulo_Secundario %}
+
+
+    
+{% block Contenido%}
+
+<div class="table-responsive">
+    <div class="dataTables_scroll">
+        <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+
+          <table id="file_export" class="table border table-striped table-bordered display text-nowrap datatable" style="width: 100%;">
+          <thead>
+              <!-- header -->
+              <tr>
+                  <th>ID</th>
+                  <th>nombre</th>
+                  <th>Apellido Paterno</th>
+                  <th>Apellido Materno</th>
+                  <th>Fecha de Nacimiento</th>
+                  <!--th>Sexo</th-->
+                  <th>Email</th>
+                  <th>Acciones</th>
+              </tr>
+              <!-- end header -->
+          </thead>
+          <tbody>
+
+              {% for tutor in tutores %}
+                  <tr>
+                      <td>{{ tutor.id }}</td>
+                      <td>
+                            <div class="d-flex align-items-center">
+                              <img src="/media/{{ tutor.foto_perfil }}" class="rounded-circle" width="40" height="40">
+                              <div class="ms-3">
+                                <span class="fs-3 fw-normal mb-0"> {{ tutor.nombre }}</span>
+                              </div>
+                            </div>
+
+                      </td>
+                      <td>{{ tutor.apellido_paterno }}</td>
+                      <td>{{ tutor.apellido_materno }}</td>
+                      <td>{{ tutor.fecha_nacimiento }}</td>
+                      <!--td>{{ tutor.id_sexo }}</td-->
+                      <td>{{ tutor.email }}</td>
+                      <td>
+                          <div class="align-items-center">
+                              <a href="edicion_tutor/{{ tutor.id }}" type="button" class="btn mb-1 btn-warning btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar Registro">
+                                <i class="fs-5 ti ti-edit"></i>
+                              </a>
+                              &nbsp;&nbsp;
+                              <a onclick="eliminar(this)" data-message="eliminar_tutor/{{ tutor.id }}" class="btn mb-1 btn-danger btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Eliminar Registro">
+                                <i class="fs-5 ti ti-trash-x-filled"></i>
+                              </a>
+                          </div>
+                      </td>
+                  </tr>
+              {% endfor %}
+
+          </tbody>
+          <tfoot>
+              <!-- start row -->
+              <tr>
+                  <th>ID</th>
+                  <th>nombre</th>
+                  <th>Apellido Paterno</th>
+                  <th>Apellido Materno</th>
+                  <th>Fecha de Nacimiento</th>
+                  <!--th>Sexo</th-->
+                  <th>Email</th>
+                  <th>Acciones</th>
+              </tr>
+              <!-- end row -->
+          </tfoot>
+          </table>
+
+        </div>
+    </div>
+</div>
+
+
+<div>
+
+</div>
+
+{% endblock Contenido%}
+
+

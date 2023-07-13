@@ -1,0 +1,116 @@
+{% extends 'Plantilla_base.html' %}
+
+{% block TitlePage %} CONTROL ESCOLAR - BUSCAR ALUMNO {% endblock TitlePage %}
+
+{% block headers %}
+    <!-- --------------------------------------------------- -->
+    <!-- Select2 -->
+    <!-- --------------------------------------------------- -->
+<link rel="stylesheet" href="/static/dist/libs/select2/dist/css/select2.min.css"
+      xmlns:son="http://www.w3.org/1999/xhtml" xmlns:son="http://www.w3.org/1999/xhtml">
+{% endblock headers %}
+
+{% block Titulo_Principal %} BUSCAR ALUMNO {% endblock Titulo_Principal %}
+
+{% block Titulo_Secundario %}
+
+<div class="row mb-4">
+  <div class="col-sm-10">
+    <h5 class="card-title"> Busque y seleccione </h5>
+  </div>
+
+  <div class="col-sm-2 text-sm-left">
+    <a class="btn btn-light-primary text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro"
+            href="{% url 'listado_alumnos' %}">
+      <i class="ti ti-arrow-back-up me-2 fs-4"></i>Regresar al listado
+    </a>
+  </div>
+
+</div>
+{% endblock Titulo_Secundario %}
+
+
+
+{% block Contenido%}
+<form action="{% url 'tutor_alumno' %}"  method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12">
+          <div class="form-floating mb-3">
+                <h6>Seleccione el Alumno</h6>
+                <select onchange="CargarTutores(this)" class="form-select select2" id="select_id_alumno" name="alumno" required style="width:100%;">
+                    <option value="" disabled selected>Buscar Alumno</option>
+                    {% for alumno in alumnos %}
+                         <option value="{{alumno.id}}">{{alumno}}</option>
+                    {% endfor %}
+                </select>
+          </div>
+        </div>
+    </div>
+<hr>
+    <div class="row">
+        <div class="col-md-12">
+          <div class="form-floating mb-3">
+                <h6>Seleccione el Tutor</h6>
+                <select class="form-select select2" multiple="multiple" id="select2-max-length" name="tutores[]" required style="width:100%;">
+                    <option value="">Buscar Tutor(es)</option>
+                    {% for tutor in tutores %}
+                         <option value="{{tutor.id}}">{{tutor}}</option>
+                    {% endfor %}
+                </select>
+          </div>
+        </div>
+    </div>
+<hr>
+
+    <div class="col-md-4">
+        <div class="form-floating mb-3">
+            <button type="submit" class="form-group btn btn-success"><i class="ti ti-search"></i> Asignar Tutor </button>
+        </div>
+    </div>
+
+</form>
+
+
+{% endblock Contenido %}
+
+{% block scripts %}
+    <!-- ---------------------------------------------- -->
+    <!-- select2 page js files -->
+    <!-- ---------------------------------------------- -->
+
+    <script src="/static/dist/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/static/dist/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/static/dist/js/forms/select2.init.js"></script>
+
+    <!--script src="/static/dist/libs/jquery/dist/jquery.min.js"></script-->
+    <script language="JavaScript">
+        function CargarTutores(element){
+
+            id_alumno = select_id_alumno.options[select_id_alumno.selectedIndex].value;
+            //alert(id_alumno);
+
+            $.ajax(
+            {
+                type:"GET",
+                url: "{% url 'tutores_asignados' %}",
+                dataType: "json",
+                data:{
+                         id_alumno: id_alumno
+                },
+                success: function( data )
+                {
+                   //alert("ID="+ data.tutor[0].id+" Nombre="+data.tutor[0].nombre);
+                   console.log(data);
+
+
+                }
+             })
+
+
+
+        }
+    </script>
+
+
+{% endblock scripts %}

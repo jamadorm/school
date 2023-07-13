@@ -1,0 +1,220 @@
+{% extends 'Plantilla_base.html' %}
+
+{% block TitlePage %} CONTROL ESCOLAR - INFORMACIÓN DEL MAESTRO {% endblock TitlePage %}
+
+{% block headers %}
+
+    <!-- --------------------------------------------------- -->
+    <!-- Select2 -->
+    <!-- --------------------------------------------------- -->
+    <link rel="stylesheet" href="/static/dist/libs/select2/dist/css/select2.min.css">
+
+{% endblock headers %}
+
+{% block Titulo_Principal %} INFORMACIÓN DEL MAESTRO {% endblock Titulo_Principal %}
+
+{% block Titulo_Secundario %}
+
+<div class="row mb-4">
+  <div class="col-sm-10">
+    <h5 class="card-title"> Ingresa los siguientes datos </h5>
+  </div>
+
+  <div class="col-sm-2 text-sm-left">
+    <a class="btn btn-light-primary text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro"
+            href="{% url 'listado_maestros' %}">
+      <i class="ti ti-arrow-back-up me-2 fs-4"></i>Regresar al listado
+    </a>
+  </div>
+
+</div>
+{% endblock Titulo_Secundario %}
+
+
+
+{% block Contenido%}
+
+<div class="row">
+    <!-- Weekly Stats -->
+    <div class="col-lg-4 d-flex align-items-strech">
+      <div class="card w-100">
+        <div class="card-body">
+
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <div class="linear-gradient d-flex align-items-center justify-content-center rounded-circle" style="width: 110px; height: 110px;" ;="">
+                <div class="border border-4 border-white d-flex align-items-center justify-content-center rounded-circle overflow-hidden" style="width: 100px; height: 100px;" ;="">
+                  <img src="/media/{{ maestro.foto_perfil }}" alt="" class="w-100 h-100">
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <h5 class="fs-5 mb-0 fw-semibold">{{ maestro }}</h5>
+              <p class="mb-0 fs-4">3ro de Preescolar</p>
+            </div>
+
+
+        </div>
+      </div>
+    </div>
+    <!-- Top Performers -->
+    <div class="col-lg-8 d-flex align-items-strech">
+      <div class="card w-100">
+        <div class="card-body">
+          <div class="d-sm-flex d-block align-items-center justify-content-between mb-7">
+            <div class="mb-3 mb-sm-0">
+              <h5 class="card-title fw-semibold">Top Performers</h5>
+              <p class="card-subtitle mb-0">Best Employees</p>
+            </div>
+            <div>
+              <select class="form-select">
+                <option value="1">March 2023</option>
+                <option value="2">April 2023</option>
+                <option value="3">May 2023</option>
+                <option value="4">June 2023</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle text-nowrap mb-0">
+              <thead>
+                <tr class="text-muted fw-semibold">
+                  <th scope="col" class="ps-0">Assigned</th>
+                  <th scope="col">Project</th>
+                  <th scope="col">Priority</th>
+                  <th scope="col">Budget</th>
+                </tr>
+              </thead>
+              <tbody class="border-top">
+                <tr>
+                  <td class="ps-0">
+                    <div class="d-flex align-items-center">
+                      <div class="me-2 pe-1">
+                        <img src="../../dist/images/profile/user-1.jpg" class="rounded-circle" width="40" height="40" alt="">
+                      </div>
+                      <div>
+                        <h6 class="fw-semibold mb-1">Sunil Joshi</h6>
+                        <p class="fs-2 mb-0 text-muted">Web Designer</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="mb-0 fs-3">Elite Admin</p>
+                  </td>
+                  <td>
+                    <span class="badge fw-semibold py-1 w-85 bg-light-primary text-primary">Low</span>
+                  </td>
+                  <td>
+                    <p class="fs-3 text-dark mb-0">$3.9K</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="ps-0">
+                    <div class="d-flex align-items-center">
+                      <div class="me-2 pe-1">
+                        <img src="../../dist/images/profile/user-2.jpg" class="rounded-circle" width="40" height="40" alt="">
+                      </div>
+                      <div>
+                        <h6 class="fw-semibold mb-1">John Deo</h6>
+                        <p class="fs-2 mb-0 text-muted"> Web Developer </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="mb-0 fs-3">Flexy Admin</p>
+                  </td>
+                  <td>
+                    <span class="badge fw-semibold py-1 w-85 bg-light-warning text-warning">Medium</span>
+                  </td>
+                  <td>
+                    <p class="fs-3 text-dark mb-0">$24.5K</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="ps-0">
+                    <div class="d-flex align-items-center">
+                      <div class="me-2 pe-1">
+                        <img src="../../dist/images/profile/user-3.jpg" class="rounded-circle" width="40" height="40" alt="">
+                      </div>
+                      <div>
+                        <h6 class="fw-semibold mb-1">Nirav Joshi</h6>
+                        <p class="fs-2 mb-0 text-muted">Web Manager</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="mb-0 fs-3">Material Pro</p>
+                  </td>
+                  <td>
+                    <span class="badge fw-semibold py-1 w-85 bg-light-info text-info">High</span>
+                  </td>
+                  <td>
+                    <p class="fs-3 text-dark mb-0">$12.8K</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="ps-0">
+                    <div class="d-flex align-items-center">
+                      <div class="me-2 pe-1">
+                        <img src="../../dist/images/profile/user-4.jpg" class="rounded-circle" width="40" height="40" alt="">
+                      </div>
+                      <div>
+                        <h6 class="fw-semibold mb-1">Yuvraj Sheth</h6>
+                        <p class="fs-2 mb-0 text-muted"> Project Manager </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="mb-0 fs-3">Xtreme Admin</p>
+                  </td>
+                  <td>
+                    <span class="badge fw-semibold py-1 w-85 bg-light-success text-success">Low</span>
+                  </td>
+                  <td>
+                    <p class="fs-3 text-dark mb-0">$4.8K</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border-0 ps-0">
+                    <div class="d-flex align-items-center">
+                      <div class="me-2 pe-1">
+                        <img src="../../dist/images/profile/user-5.jpg" class="rounded-circle" width="40" height="40" alt="">
+                      </div>
+                      <div>
+                        <h6 class="fw-semibold mb-1">Micheal Doe</h6>
+                        <p class="fs-2 mb-0 text-muted"> Content Writer </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="border-0">
+                    <p class="mb-0 fs-3">Helping Hands WP Theme</p>
+                  </td>
+                  <td class="border-0">
+                    <span class="badge fw-semibold py-1 w-85 bg-light-danger text-danger">High</span>
+                  </td>
+                  <td class="border-0">
+                    <p class="fs-3 text-dark mb-0">$9.3K</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+{% endblock Contenido %}
+
+{% block scripts %}
+    <!-- ---------------------------------------------- -->
+    <!-- select2 page js files -->
+    <!-- ---------------------------------------------- -->
+
+    <script src="/static/dist/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/static/dist/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/static/dist/js/forms/select2.init.js"></script>
+
+
+
+{% endblock scripts %}

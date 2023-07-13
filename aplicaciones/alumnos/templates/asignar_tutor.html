@@ -1,0 +1,331 @@
+{% extends 'Plantilla_base.html' %}
+
+{% block TitlePage %} CONTROL ESCOLAR - BUSCAR ALUMNO {% endblock TitlePage %}
+
+{% block headers %}
+    <!-- --------------------------------------------------- -->
+    <!-- Select2 -->
+    <!-- --------------------------------------------------- -->
+    <link rel="stylesheet" href="/static/dist/libs/select2/dist/css/select2.min.css"
+      xmlns:son="http://www.w3.org/1999/xhtml" xmlns:son="http://www.w3.org/1999/xhtml">
+
+    <!--  Sweet Alert 2-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+{% endblock headers %}
+
+{% block Titulo_Principal %} BUSCAR ALUMNO {% endblock Titulo_Principal %}
+
+{% block Titulo_Secundario %}
+
+ {% if message %}
+
+            <script language="JavaScript">
+                var mensaje = ""
+                mensaje = mensaje.concat("{{message}}");
+
+
+                if( mensaje == "Tutor_agregado") {
+                    Swal.fire({
+                          icon: 'success',
+                          title: '<i class="ti ti-device-floppy"></i>' + 'Tutor Asignado',
+                          html: 'El Tutor se asignó correctamente.',
+                          timer: 3500,
+                          timerProgressBar: true,
+                          willClose: () => {
+
+                          }
+                        });
+                }
+                else
+                    if( mensaje == "Tutor_existente") {
+                        Swal.fire({
+                              icon: 'error',
+                              title: '<i class="ti ti-exclamation-circle"></i>' + 'Tutor Existente',
+                              html: 'El Tutor ya ha sido asignado anteriormente.',
+                              timer: 3500,
+                              timerProgressBar: true,
+                              willClose: () => {
+
+                              }
+                            });
+                }
+            </script>
+
+ {% endif %}
+
+<div class="row mb-4">
+  <div class="col-sm-10">
+    <h5 class="card-title"> Busque y seleccione </h5>
+  </div>
+
+  <div class="col-sm-2 text-sm-left">
+    <a class="btn btn-light-primary text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro"
+            href="{% url 'listado_alumnos' %}">
+      <i class="ti ti-arrow-back-up me-2 fs-4"></i>Regresar al listado
+    </a>
+  </div>
+
+</div>
+{% endblock Titulo_Secundario %}
+
+
+
+{% block Contenido%}
+
+
+<div class="row">
+    <div class="col-lg-6">
+      <div class="card shadow-none border">
+        <div class="card-body">
+          <h5 class="fw-semibold mb-4">ASIGNACIÓN DE TUTORES</h5>
+          <!--p class="mb-4">DATOS ACTUALES DEL ALUMNO</p-->
+            <form action="{% url 'tutor_alumno' %}"  method="POST">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-floating mb-3">
+                                <h6>Seleccione el Alumno</h6>
+                                <select onchange="CargarTutoresAsignados(this)" class="form-select select2" id="id_id_alumno" name="id_alumno" required style="width:100%; background-color: #a43636; border:3px;">
+                                    {% if id_alumno_selected %}
+                                        <option value="" disabled>Buscar Alumno</option>
+                                    {% else %}
+                                        <option value="" selected disabled>Buscar Alumno</option>
+                                    {% endif %}
+                                    {% for alumno in alumnos %}
+                                        {% if alumno.id == id_alumno_selected %}
+                                            <option value="{{alumno.id}}" selected>{{alumno}}</option>
+                                        {% else %}
+                                            <option value="{{alumno.id}}">{{alumno}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                          </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-floating mb-3">
+                                <h6>Seleccione el Tutor</h6>
+                                <select class="form-select select2" id="id_id_tutor" name="id_tutor" required style="width:100%;">
+                                    <option value="">Buscar Tutor(es)</option>
+                                    {% for tutor in tutores %}
+                                         <option value="{{tutor.id}}">{{tutor}}</option>
+                                    {% endfor %}
+                                </select>
+                          </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-floating mb-3">
+                                <h6>Ingresa el Parentesco</h6>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="ti ti-user-heart"></i></span>
+                                    <input type="text" class="form-control" name="parentesco" maxlength="50" required="" id="id_parentesco" placeholder="Parentesco con el alumno" >
+                                </div>
+                          </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <button type="submit" class="form-group btn btn-success"><i class="ti ti-search"></i> Asignar Tutor </button>
+                        </div>
+                    </div>
+
+                </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 ">
+      <div class="card shadow-none border">
+        <div class="card-body">
+              <h4 class="fw-semibold mb-3">Tutores Asignados</h4>
+
+
+              <div class="align-items-center">
+                  <div class="row">
+                      <div id="p_sin_tutores">...Seleccione algún alumno...</div>
+                      <div id="id_div" class="col-12 mb-1"></div>
+
+                      <div id="id_table" class="col-12 mb-1"></div>
+
+
+                  </div>
+
+              </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+{% endblock Contenido %}
+
+{% block scripts %}
+    <!-- ---------------------------------------------- -->
+    <!-- select2 page js files -->
+    <!-- ---------------------------------------------- -->
+
+    <script src="/static/dist/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/static/dist/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/static/dist/js/forms/select2.init.js"></script>
+
+    <!--script src="/static/dist/libs/jquery/dist/jquery.min.js"></script-->
+
+    <!-- ---------------------------------------------- -->
+    <!-- select2 page js files -->
+    <!-- ---------------------------------------------- -->
+    <!-- Scripts js para botones SweetAlert 2-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script language="JavaScript">
+        function CargarTutoresAsignados(element){
+            id_div.innerHTML ="";
+            id_alumno = id_id_alumno.options[id_id_alumno.selectedIndex].value;
+            //alert(id_alumno);
+
+            $.ajax(
+            {
+                type:"GET",
+                url: "{% url 'tutores_asignados' %}",
+                dataType: "json",
+                data:{
+                         id_alumno: id_alumno
+                },
+                success: function( data )
+                {
+                   //console.log(data);
+
+                   if (data.message == "Si existen tutores asignados")
+                    {
+                        let tutores=data.tutores;
+
+                        p_sin_tutores.innerHTML="";
+                        id_table.innerHTML=""
+                        id_table.innerHTML = "<div class='table-responsive' style='overflow: hidden; position: relative; border: 0px; width: 100%;'>" +
+
+                            "<table class='table border text-nowrap customize-table mb-0 align-middle'>" +
+                              "<thead class='text-dark fs-4'> " +
+                               " <tr> " +
+                                  "<th><h6 class='fs-4 fw-semibold mb-0'>Foto</h6></th> " +
+                                  "<th><h6 class='fs-4 fw-semibold mb-0'>Información</h6></th> " +
+                                  "<th></th> " +
+                                "</tr> " +
+                              "</thead> " +
+                              "<tbody id='table_body'> " +
+
+
+                              "</tbody> " +
+                            "</table>" +
+
+                        "</div>";
+
+                        tutores.map(function(tutores) //Otra forma de hacer un ciclo mediante map
+
+                        {
+                            //console.log(tutores.id_tutor_id);
+                            id_tutor = tutores.id_tutor_id  //Estos vienene del modelo en Django "AlumnoTutores"
+                            alumno_id = tutores.id_alumno_id
+
+                                    $.ajax(
+                                        {
+                                            type:"GET",
+                                            url: "{% url 'detalles_tutor' %}",
+                                            dataType: "json",
+                                            data:{
+                                                     id: id_tutor,
+                                                     alumno_id: alumno_id
+                                            },
+                                            success: function( data )
+                                            {
+
+                                               //console.log(data);
+
+                                               var nombre_completo = data.tutor[0].nombre + ' ' + data.tutor[0].apellido_paterno + ' ' + data.tutor[0].apellido_materno;
+                                               //console.log("ID="+ data.tutor[0].id+" Nombress="+data.tutor[0].nombre);
+                                               //console.log(nombre_completo);
+
+
+
+                                                table_body.innerHTML=table_body.innerHTML+"<tr>"+
+                                                                "<td> " +
+                                                                    "<div class='d-flex align-items-center'> " +
+                                                                      "<img src='../../media/"+data.tutor[0].foto_perfil + "' class='rounded-circle' width='50' height='50'> " +
+                                                                    "</div> " +
+                                                                "</td> " +
+                                                                "<td> " +
+                                                                    "<div class='d-flex align-items-center'> " +
+                                                                        "<div> " +
+                                                                            "<h6 class='fs-4 fw-semibold mb-0'>" + nombre_completo + "</h6> " +
+                                                                            "<p class='mb-0 fw-normal'>" + data.tutor[0].telefono + "</p> " +
+                                                                            "<p class='mb-0 fw-normal'>" + data.parentesco[0].parentesco + "</p> " +
+                                                                        "</div> " +
+                                                                    "</div> " +
+                                                                "</td> " +
+
+                                                                  "<td> " +
+                                                                    "<div class='dropdown dropstart'> " +
+                                                                      "<a href='#' class='text-muted' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'> " +
+                                                                        "<i class='ti ti-dots-vertical fs-6'></i> " +
+                                                                      "</a> " +
+                                                                      "<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton'> " +
+                                                                        "<li> " +
+                                                                          "<a class='dropdown-item d-flex align-items-center gap-3' href='#'><i class='fs-4 ti ti-eye'></i>Ver Detalles</a> " +
+                                                                        "</li> " +
+                                                                        "<li> " +
+                                                                          "<a class='dropdown-item d-flex align-items-center gap-3' href='#'><i class='fs-4 ti ti-edit'></i>Editar</a> " +
+                                                                        "</li> " +
+                                                                        "<li> " +
+                                                                          "<a class='dropdown-item d-flex align-items-center gap-3' href='#'><i class='fs-4 ti ti-trash'></i>Eliminar</a> " +
+                                                                        "</li> " +
+                                                                      "</ul> " +
+                                                                    "</div> " +
+                                                                  "</td> " +
+                                                            "</tr>";
+
+
+
+
+                                            }
+                                        })
+
+                        });
+
+                    }
+                    else if(data.message == "Not Found"){
+                        id_div.innerHTML = "";
+                        id_table.innerHTML = "";
+                        p_sin_tutores.innerHTML = " \
+                                <div class='alert alert-danger' role='alert'> \
+                                  <strong>Atención - </strong> Este alumno no tiene Tutor asignado. \
+                                </div>";
+
+                    }
+
+
+
+
+                }
+             })
+
+
+
+        }
+
+        window.onload = function() {
+          CargarTutoresAsignados(id_id_alumno);
+        };
+    </script>
+
+
+{% endblock scripts %}

@@ -1,0 +1,404 @@
+{% extends 'Plantilla_Perfil.html' %}
+
+{% block TitlePage %} CONTROL ESCOLAR - PERFIL DEL ALUMNO {% endblock TitlePage %}
+
+{% block headers %}
+    <!-- --------------------------------------------------- -->
+    <!-- Select2 -->
+    <!-- --------------------------------------------------- -->
+    <!--link rel="stylesheet" href="/static/dist/libs/select2/dist/css/select2.min.css"-->
+{% endblock headers %}
+
+{% block Titulo_Principal %} PERFIL DEL ALUMNO {% endblock Titulo_Principal %}
+
+
+
+
+{% block Contenido %}
+
+  <div class="card overflow-hidden">
+    <div class="card-body p-0">
+      <img src="/static/dist/images/backgrounds/profilebg.jpg" alt="" class="img-fluid">
+      <div class="row align-items-center">
+        <div class="col-lg-4 order-lg-1 order-2">
+          <div class="d-flex align-items-center justify-content-around m-4">
+              <div>
+                  <img src="/static/dist/images/logos/cropped-logo-wp-2.jpg" alt="" class="img-fluid" height="130px" width="130px">
+              </div>
+            <!--div class="text-center">
+              <i class="ti ti-file-description fs-6 d-block mb-2"></i>
+              <h4 class="mb-0 fw-semibold lh-1">938</h4>
+              <p class="mb-0 fs-4">Posts</p>
+            </div>
+            <div class="text-center">
+              <i class="ti ti-user-circle fs-6 d-block mb-2"></i>
+              <h4 class="mb-0 fw-semibold lh-1">3,586</h4>
+              <p class="mb-0 fs-4">Followers</p>
+            </div>
+            <div class="text-center">
+              <i class="ti ti-user-check fs-6 d-block mb-2"></i>
+              <h4 class="mb-0 fw-semibold lh-1">2,659</h4>
+              <p class="mb-0 fs-4">Following</p>
+            </div-->
+          </div>
+        </div>
+        <div class="col-lg-4 mt-n3 order-lg-2 order-1">
+          <div class="mt-n5">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <div class="linear-gradient d-flex align-items-center justify-content-center rounded-circle" style="width: 110px; height: 110px;" ;="">
+                <div class="border border-4 border-white d-flex align-items-center justify-content-center rounded-circle overflow-hidden" style="width: 100px; height: 100px;" ;="">
+                  <img src="/media/{{ alumno.foto_perfil }}" alt="" class="w-100 h-100">
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <h5 class="fs-5 mb-0 fw-semibold">{{ alumno }}</h5>
+              <p class="mb-0 fs-4">3ro de Preescolar</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 order-last">
+          <ul class="list-unstyled d-flex align-items-center justify-content-center justify-content-lg-start my-3 gap-3">
+            <li class="position-relative">
+              <a href="../edicion_alumno/{{ alumno.id }}" class="text-white d-flex align-items-center justify-content-center bg-warning p-2 fs-4 rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar Información">
+                <i class="fs-5 ti ti-edit"></i>
+              </a>
+            </li>
+            <li class="position-relative">
+              <a onclick="eliminar(this)" data-message="../eliminar_alumno/{{ alumno.id }}" class="text-white bg-danger d-flex align-items-center justify-content-center p-2 fs-4 rounded-circle " href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Eliminar Alumno" data-bs-original-title="Eliminar Registro">
+                <i class="ti ti-trash-x-filled"></i>
+              </a>
+            </li>
+            <li class="position-relative">
+              <!--a class="text-white bg-secondary d-flex align-items-center justify-content-center p-2 fs-4 rounded-circle " href="javascript:void(0)">
+                <i class="ti ti-brand-dribbble-"></i>
+              </a-->
+            </li>
+            <li class="position-relative">
+              <!--a class="text-white bg-danger d-flex align-items-center justify-content-center p-2 fs-4 rounded-circle " href="javascript:void(0)">
+                <i class="ti ti-brand-youtube"></i>
+              </a-->
+            </li>
+            <li>
+              <a class="btn btn-light-primary text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro" href="{% url 'listado_alumnos' %}">
+                <i class="ti ti-arrow-back-up me-2 fs-4"></i>Regresar al listado
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <ul class="nav nav-pills user-profile-tab justify-content-end mt-2 bg-light-info rounded-2" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link position-relative rounded-0 active d-flex align-items-center justify-content-center bg-transparent fs-3 py-6" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">
+            <i class="ti ti-user-circle me-2 fs-6"></i>
+            <span class="d-none d-md-block">Perfil</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6" id="pills-followers-tab" data-bs-toggle="pill" data-bs-target="#pills-followers" type="button" role="tab" aria-controls="pills-followers" aria-selected="false">
+            <i class="ti ti-list-check me-2 fs-6"></i>
+            <span class="d-none d-md-block">Asistencias</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6" id="pills-friends-tab" data-bs-toggle="pill" data-bs-target="#pills-friends" type="button" role="tab" aria-controls="pills-friends" aria-selected="false">
+            <i class="ti ti-award me-2 fs-6"></i>
+            <span class="d-none d-md-block">Calificaciones</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6" id="pills-gallery-tab" data-bs-toggle="pill" data-bs-target="#pills-gallery" type="button" role="tab" aria-controls="pills-gallery" aria-selected="false">
+            <i class="ti ti-books me-2 fs-6"></i>
+            <span class="d-none d-md-block">Materias</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+</div>
+
+<div class="tab-content" id="pills-tabContent">
+	
+	
+	<div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+	  <div class="row">
+		<div class="col-lg-4">
+		  <div class="card shadow-none border">
+			<div class="card-body">
+			  <h4 class="fw-semibold ">INFORMACIÓN</h4>
+			  <p class="mb-4">DATOS ACTUALES DEL ALUMNO</p>
+			  <ul class="list-unstyled mb-0">
+
+				<li class="d-flex align-items-center gap-3">
+				  <i class="ti ti-briefcase text-dark fs-6"></i>
+				  <h6 class="fs-4 fw-semibold mb-0">Nombre completo </h6>
+				</li>
+				  <li class="mb-3 fs-4">{{ alumno }}</li>
+
+				<li class="d-flex align-items-center gap-3">
+				  <i class="ti ti-mail text-dark fs-6"></i>
+				  <h6 class="fs-4 fw-semibold mb-0">Grado</h6>
+				</li>
+				  <li class="mb-3 fs-4">3ro de Preescolar</li>
+				  
+				<li class="d-flex align-items-center gap-3">
+				  <i class="ti ti-device-desktop text-dark fs-6"></i>
+				  <h6 class="fs-4 fw-semibold mb-0">Maestra </h6>
+				</li>
+				  <li class="mb-3 fs-4">Paulina del Rosario Trejo López</li>
+				  
+				<li class="d-flex align-items-center gap-3 ">
+				  <i class="ti ti-map-pin text-dark fs-6"></i>
+				  <h6 class="fs-4 fw-semibold mb-0">Ciclo Escolar</h6>
+				</li>
+				  <li class="mb-3 fs-4">Ciclo Escolar Agosto 2023 - Julio 2024</li>
+
+                  <li class=" mb-3 d-flex align-items-center gap-3 ">
+                      <i class="ti ti-camera-selfie text-dark fs-6"></i>
+                      <h6 class="fs-4 fw-semibold mb-0">Foto de Perfil</h6>
+                  </li>
+                  <li class="mb-3 fs-5">
+                          <a target="_blank" href="/media/{{ alumno.foto_perfil}}">
+                              <img src="/media/{{ alumno.foto_perfil}}" alt="" class="rounded-2 img-fluid mb-3" style="width: 150px; height: 150px;">
+                          </a>
+                  </li>
+			  </ul>
+			</div>
+		  </div>
+
+		</div>
+		<div class="col-lg-8 ">
+		  <div class="card shadow-none border">
+			<div class="card-body">
+                  <h4 class="fw-semibold mb-3">Detalles del Alumno</h4>
+
+                  <div class="d-flex align-items-center gap-2">
+                      <div class="row">
+                          <div class="col-5 mb-7">
+                            <p class="mb-0 fs-4">Teléfono</p>
+                            <h6 class=" fw-semibold mb-0">{{ alumno.telefono}}</h6>
+                          </div>
+                          <div class="col-7 mb-7">
+                            <p class="mb-0 fs-4">Correo Electrónico</p>
+                            <h6 class="fw-semibold mb-0">{{ alumno.email }}</h6>
+                          </div>
+                          <div class="col-5 mb-7">
+                            <p class="mb-0 fs-4">Fecha de Nacimiento</p>
+                            <h6 class="fw-semibold mb-0">{{ alumno.fecha_nacimiento}}</h6>
+                          </div>
+                          <div class="col-7 mb-7">
+                            <p class="mb-0 fs-4">Sexo</p>
+                            <h6 class="fw-semibold mb-0">{{ alumno.id_sexo }}</h6>
+                          </div>
+                          <div class="col-12 mb-9">
+                            <p class="mb-0 fs-4">Domicilio</p>
+                            <h6 class="fw-semibold mb-0">{{ alumno.domicilio }}</h6>
+                          </div>
+                          <div class="col-5 mb-7">
+                            <p class="mb-0 fs-4">Tipo de Sangre</p>
+                            <h6 class="fw-semibold mb-0"> {{ alumno.tipo_sangre }}</h6>
+                          </div>
+                          <div class="col-7 mb-7">
+                            <p class="mb-0 fs-4">CURP</p>
+                            <h6 class="fw-semibold mb-0">{{ alumno.curp }}</h6>
+                          </div>
+
+                          <div class="col-12">
+                           <hr>
+                          </div>
+
+
+                        </div>
+
+                  </div>
+
+                  <h4 class="fw-semibold mb-3">Tutores del Alumno</h4>
+
+                  <div class="d-flex align-items-center gap-2">
+				  <div class="row">
+                      <div class="col-12 mb-1">
+                          {% for tutor in tutores %}
+                            <p>
+                                <h6 class="mb-1  fs-4">
+                                    <i class="ti ti-arrow-badge-right"></i> {{ tutor.id_tutor }}
+                                    <!--a class="id_link" href="" onclick="my_function(this)" id="id_link" data-id_tutor="{{ tutor.id_tutor_id }}" data-bs-toggle="modal" data-bs-target="#vertical-center-scroll-modal"><small class="text-muted"> (Ver detalles...)</small></a-->
+                                    <button class="id_link" onclick="Cargar(this)" id="id_link" data-id_tutor="{{ tutor.id_tutor_id }}" data-id_alumno="{{ alumno.id}}" data-bs-toggle="modal" data-bs-target="#vertical-center-scroll-modal" style="border:0;color: #242424; text-decoration: none; background: #ffffff; ">
+                                        <small class="text-muted"> (Ver detalles...)</small>
+                                        </button>
+                                </h6>
+                            </p>
+                            {% endfor %}
+                              <!--button type="button" class="btn mb-1 btn-light-danger text-danger btn-lg px-4 fs-4 font-medium" data-bs-toggle="modal" data-bs-target="#vertical-center-scroll-modal">
+                                Vertically centered scrollable
+                              </button-->
+                              <div class="modal fade" id="vertical-center-scroll-modal" tabindex="-1" aria-labelledby="vertical-center-modal" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                  <div class="modal-content">
+                                    <div class="modal-header d-flex align-items-center">
+                                      <h4 class="modal-title" id="myLargeModalLabel">
+                                        DETALLES DEL TUTOR
+                                      </h4>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img id="foto_perfil_tutor" src="" alt="user3" width="72" height="72" class="rounded-circle">
+                                            <div>
+                                                <h6 class="fw-semibold fs-4 mb-0" id="h6_nombre_tutor">Cargando datos...</h6>
+                                                <p id="p_telefono" class="mb-0">Cargando datos...</p>
+                                                <p id="p_parentesco" class="mb-0">Cargando datos...</p>
+                                            </div>
+                                        </div>
+                                      <div class="col-md-12">
+                                        <div class="mb-0 mt-3">
+                                          <label class="control-label mb-0">Dirección</label>
+                                          <input type="text" id="tutor_domicilio" class="form-control mb-0" style="border:0; font-weight: bold;">
+                                        </div>
+                                      </div>
+                                      <div class="col-md-12">
+                                        <div class="mb-0 mt-0">
+                                          <label class="control-label">Fecha de Nacimiento</label>
+                                          <input type="text" id="tutor_nacimiento" class="form-control mt-0" style="border:0; font-weight: bold;">
+                                        </div>
+                                      </div>
+                                      <div class="col-md-12">
+                                        <div class="mb-0 mt-0">
+                                          <label class="control-label">CURP</label>
+                                          <input type="text" id="tutor_curp" class="form-control mt-0" style="border:0; font-weight: bold;">
+                                        </div>
+                                      </div>
+                                      <div class="col-md-12">
+                                        <div class="mb-0 mt-0">
+                                          <label class="control-label">Correo Electrónico</label>
+                                          <input type="text" id="tutor_email" class="form-control mt-0" style="border:0; font-weight: bold;">
+                                        </div>
+                                      </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-light-danger text-danger font-medium waves-effect text-start" data-bs-dismiss="modal">
+                                        Cerrar
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                      </div>
+
+
+
+                    </div>
+
+			  </div>
+
+
+			</div>
+		  </div>
+		</div>
+
+	  </div>
+	</div>
+
+
+	<div class="tab-pane fade" id="pills-followers" role="tabpanel" aria-labelledby="pills-followers-tab" tabindex="0">
+	  <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
+		<h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">Asistencias <span class="badge text-bg-secondary fs-2 rounded-4 py-1 px-2 ms-2">8</span></h3>
+		<form class="position-relative">
+		  <input type="text" class="form-control search-chat py-2 ps-5" id="text-srh" placeholder="Search Followers">
+		  <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y text-dark ms-3"></i>
+		</form>
+	  </div>
+	  <div class="card">
+		  <div class="card-body">
+			  Contenido Aquí
+		  </div>
+	   </div>
+	</div>
+	
+	<div class="tab-pane fade" id="pills-friends" role="tabpanel" aria-labelledby="pills-friends-tab" tabindex="0">
+	  <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
+		<h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">Calificaciones <span class="badge text-bg-secondary fs-2 rounded-4 py-1 px-2 ms-2">20</span></h3>
+		<form class="position-relative">
+		  <input type="text" class="form-control search-chat py-2 ps-5" id="text-srh" placeholder="Search Friends">
+		  <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y text-dark ms-3"></i>
+		</form>
+	  </div>
+
+		<div class="card">
+		  <div class="card-body">
+			  Contenido Aquí
+		  </div>
+		</div>
+  	</div>
+	
+	<div class="tab-pane fade" id="pills-gallery" role="tabpanel" aria-labelledby="pills-gallery-tab" tabindex="0">
+	  <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
+		<h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">Materias <span class="badge text-bg-secondary fs-2 rounded-4 py-1 px-2 ms-2">12</span></h3>
+		<form class="position-relative">
+		  <input type="text" class="form-control search-chat py-2 ps-5" id="text-srh" placeholder="Search Friends">
+		  <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y text-dark ms-3"></i>
+		</form>
+	  </div>
+		
+		<div class="card">
+		  <div class="card-body">
+			  Contenido Aquí
+		  </div>
+		</div>
+
+	</div>
+
+	
+</div>
+
+
+{% endblock Contenido %}
+
+{% block scripts %}
+    <!-- ---------------------------------------------- -->
+    <!-- select2 page js files -->
+    <!-- ---------------------------------------------- -->
+
+    <!--script src="/static/dist/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/static/dist/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/static/dist/js/forms/select2.init.js"></script>
+
+    <script src="/static/dist/libs/jquery/dist/jquery.min.js"></script-->
+    <script language="JavaScript">
+        function Cargar(element){
+            var id_tutor;
+            id_tutor = element.getAttribute("data-id_tutor");
+            alumno_id = element.getAttribute("data-id_alumno");
+
+            //alert(id_tutor);
+            $.ajax(
+            {
+                type:"GET",
+                url: "{% url 'detalles_tutor' %}",
+                dataType: "json",
+                data:{
+                         id: id_tutor,
+                         alumno_id: alumno_id
+                },
+                success: function( data )
+                {
+                   //alert("ID="+ data.tutor[0].id+" Nombre="+data.tutor[0].nombre);
+                   //console.log(data);
+
+                   foto_perfil_tutor.src="../../media/"+data.tutor[0].foto_perfil;
+                   var nombre_completo = data.tutor[0].nombre + ' ' + data.tutor[0].apellido_paterno + ' ' + data.tutor[0].apellido_materno;
+                   h6_nombre_tutor.innerHTML = nombre_completo;  // **** innerHTML funciona pero no es tan seguro de utilizar
+                   p_telefono.innerHTML = 'Teléfono: <b>' + data.tutor[0].telefono + '</b>';
+                   p_parentesco.innerHTML = 'Parentesco: <b>' +  data.parentesco[0].parentesco + '</b>';
+
+                   tutor_domicilio.value = data.tutor[0].domicilio;
+                   tutor_nacimiento.value = data.tutor[0].fecha_nacimiento;
+                   tutor_email.value = data.tutor[0].email;
+                   tutor_curp.value = data.tutor[0].curp;
+
+
+                }
+             })
+        }
+    </script>
+
+{% endblock scripts %}
