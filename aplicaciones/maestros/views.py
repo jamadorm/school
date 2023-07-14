@@ -69,13 +69,25 @@ def EliminarMaestro(request, id):
 
 
 def BuscarMaestro(request):
-    if request.method == 'POST':
-        id_maestro = request.POST['maestro']
-        maestro = Maestro.objects.get(id=id_maestro)
-        return render(request, 'perfil_maestro.html', {"maestro": maestro})
+    if request.method == 'GET':
+        print(request)
+        if 'id' in request.GET:
+            print("Si existe variable")
+            id_maestro = request.GET['id']
+            maestro = Maestro.objects.get(id=id_maestro)
+            return render(request, 'perfil_maestro.html', {"maestro": maestro})
+        else:
+            print("NO existe variable")
+            maestros = Maestro.objects.all()
+            return render(request, 'buscar_maestro.html', {"maestros": maestros})
     else:
-        maestros = Maestro.objects.all()
-        return render(request, 'buscar_maestro.html', {"maestros": maestros})
+        if request.method == 'POST':
+            id_maestro = request.POST['maestro']
+            maestro = Maestro.objects.get(id=id_maestro)
+            return render(request, 'perfil_maestro.html', {"maestro": maestro})
+        else:
+            maestros = Maestro.objects.all()
+            return render(request, 'buscar_maestro.html', {"maestros": maestros})
 
 
 def PerfilMaestro(request):
