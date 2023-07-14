@@ -205,6 +205,45 @@
 
                 </ul>
               </li>
+
+              <!-- --------------------------------------------------- -->
+              <!-- MENU MAESTROS -->
+              <!-- --------------------------------------------------- -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
+                  <span class="d-flex">
+                    <i class="ti ti-brand-apple-podcast" stroke-width="2.25"></i>
+                  </span>
+                  <span class="hide-menu">Maestros</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a href="{% url 'listado_maestros'%}" class="sidebar-link">
+                      <div class="round-16 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-circle"></i>
+                      </div>
+                      <span class="hide-menu">Listado de Maestros</span>
+                    </a>
+                  </li>
+				  <li class="sidebar-item">
+                    <a href="{% url 'nuevo_maestro'%}" class="sidebar-link">
+                      <div class="round-16 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-circle"></i>
+                      </div>
+                      <span class="hide-menu">Nuevo Maestro</span>
+                    </a>
+                  </li>
+				  <li class="sidebar-item">
+                    <a href="{% url 'buscar_maestro' %}" class="sidebar-link">
+                      <div class="round-16 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-circle"></i>
+                      </div>
+                      <span class="hide-menu">Buscar Maestro</span>
+                    </a>
+                  </li>
+
+                </ul>
+              </li>
              
               
             </ul>

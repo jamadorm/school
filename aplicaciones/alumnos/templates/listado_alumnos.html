@@ -113,7 +113,7 @@
                             <div class="d-flex align-items-center">
                               <a href="perfil_alumno/{{ alumno.id }}"><img src="/media/{{ alumno.foto_perfil }}" class="rounded-circle border border-2 border-primary" width="45" height="45"></a>
                               <div class="ms-3">
-                                <span class="fs-3 fw-normal mb-0"> {{ alumno.nombre }}</span>
+                                <span class="fs-3 fw-normal mb-0">&nbsp;&nbsp; {{ alumno.nombre }}</span>
                               </div>
                             </div>
 
@@ -125,10 +125,12 @@
                       <td>{{ alumno.email }}</td>
                       <td>
                           <div class="align-items-center">
+                              <a href="perfil_alumno/{{ alumno.id }}" type="button" class="btn mb-1 btn-info btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver Detalles">
+                                <i class="fs-5 ti ti-id"></i>
+                              </a>
                               <a href="edicion_alumno/{{ alumno.id }}" type="button" class="btn mb-1 btn-warning btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar Registro">
                                 <i class="fs-5 ti ti-edit"></i>
                               </a>
-                              &nbsp;&nbsp;
                               <a onclick="eliminar(this)" data-message="eliminar_alumno/{{ alumno.id }}" class="btn mb-1 btn-danger btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Eliminar Registro">
                                 <i class="fs-5 ti ti-trash-x-filled"></i>
                               </a>
