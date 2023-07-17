@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'aplicaciones.tutores',
     'aplicaciones.alumnos',
     'aplicaciones.maestros',
+    'aplicaciones.materias',
 ]
 
 MIDDLEWARE = [

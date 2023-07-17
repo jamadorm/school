@@ -1,0 +1,167 @@
+{% extends 'Plantilla_Tabla.html' %}
+
+{% block TitlePage %} CONTROL ESCOLAR - MATERIAS {% endblock TitlePage %}
+
+{% block Nombre_Usuario %} Paulina Trejo {% endblock Nombre_Usuario %}
+
+{% block Puesto_Usuario %} Maestra {% endblock Puesto_Usuario %}
+
+{% block email %} paudamador@hotmail.com {% endblock email %}
+
+{% block Titulo_Principal %} LISTADO DE MATERIAS {% endblock Titulo_Principal %}
+
+{% block Titulo_Secundario %}
+    {% if messages %}
+        {% for message in messages%}
+            <script language="JavaScript">
+                var mensaje = ""
+                mensaje = mensaje.concat("{{message}}");
+
+                if( mensaje == "lista_alumnos") {
+
+                }
+                else
+                    if( mensaje == "new") {
+                    Swal.fire({
+                          icon: 'success',
+                          title: '<i class="ti ti-device-floppy"></i>' + 'Registro Guardado',
+                          html: 'El registro se guardó correctamente.',
+                          timer: 3000,
+                          timerProgressBar: true,
+                          willClose: () => {
+
+                          }
+                        })
+                }
+                else
+                    if( mensaje == "edit") {
+                    Swal.fire({
+                          icon: 'success',
+                          title: '<i class="ti ti-edit"></i>' + 'Registro Actualizado',
+                          html: 'El registro se actualizó correctamente.',
+                          timer: 3000,
+                          timerProgressBar: true,
+                          willClose: () => {
+
+                          }
+                        })
+                }
+                else
+                    if( mensaje == "delete") {
+                        Swal.fire({
+                              icon: 'success',
+                              title: '<i class="ti ti-trash"></i>' + 'Registro Eliminado',
+                              html: 'El registro se eliminó correctamente.',
+                              timer: 2000,
+                              timerProgressBar: true,
+                              willClose: () => {
+
+                              }
+                            })
+                }
+            </script>
+
+        {% endfor %}
+    {% endif %}
+
+
+    <div class="row mb-4">
+      <div class="col-sm-10">
+        <h5 class="card-title"> Listado de Materias </h5>
+      </div>
+
+      <div class="col-sm-2 col-mb-3 text-right">
+        <a class="btn btn-light-success text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro"
+                href="{% url 'nueva_materia' %}">
+          <i class="ti ti-text-plus fs-6"></i>Nueva Materia
+        </a>
+      </div>
+
+    </div>
+
+{% endblock Titulo_Secundario %}
+
+
+    
+{% block Contenido%}
+
+<div class="table-responsive">
+    <div class="dataTables_scroll">
+        <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+
+          <table id="file_export" class="table border table-striped table-bordered display text-nowrap datatable" style="width: 100%;">
+          <thead>
+              <!-- header -->
+              <tr>
+                  <th>ID</th>
+                  <th>Materia</th>
+                  <th>codigo_materia</th>
+                  <th>Detalles de la Materia</th>
+                  <th>Ciclo Escolar</th>
+                  <th>Maestro</th>
+                  <th>Acciones</th>
+              </tr>
+              <!-- end header -->
+          </thead>
+          <tbody>
+
+              {% for materia in materias %}
+                  <tr>
+                      <td>{{ materia.id }}</td>
+                      <td>
+                            <div class="d-flex align-items-center">
+                              <a href="buscar_materia?id={{ materia.id }}"><img src="/media/{{ materia.foto_libro }}" class="rounded-circle border border-2 border-primary" width="45" height="45"></a>
+                              <div class="ms-3">
+                                <span class="fs-3 fw-normal mb-0">&nbsp;&nbsp; {{ materia.materia }}</span>
+                              </div>
+                            </div>
+
+                      </td>
+                      <td>{{ materia.codigo_materia }}</td>
+                      <td>{{ materia.detalles_materia }}</td>
+                      <td>{{ materia.id_ciclo_escolar }}</td>
+                      <td>{{ materia.id_maestro }}</td>
+                      <td>
+                          <div class="align-items-center">
+                              <a href="buscar_maestro?id={{ maestro.id }}" type="button" class="btn mb-1 btn-info btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver Detalles">
+                                <i class="fs-5 ti ti-id"></i>
+                              </a>
+                              <a href="edicion_maestro/{{ maestro.id }}" type="button" class="btn mb-1 btn-warning btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar Registro">
+                                <i class="fs-5 ti ti-edit"></i>
+                              </a>
+                              <a onclick="eliminar(this)" data-message="eliminar_maestro/{{ maestro.id }}" class="btn mb-1 btn-danger btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Eliminar Registro">
+                                <i class="fs-5 ti ti-trash-x-filled"></i>
+                              </a>
+                          </div>
+                      </td>
+                  </tr>
+              {% endfor %}
+
+          </tbody>
+          <tfoot>
+              <!-- start row -->
+              <tr>
+                  <th>ID</th>
+                  <th>Materia</th>
+                  <th>codigo_materia</th>
+                  <th>Detalles de la Materia</th>
+                  <th>Ciclo Escolar</th>
+                  <th>Maestro</th>
+                  <th>Acciones</th>
+              </tr>
+              <!-- end row -->
+          </tfoot>
+          </table>
+
+        </div>
+    </div>
+</div>
+
+
+<div>
+
+</div>
+
+{% endblock Contenido%}
+
+
