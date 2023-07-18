@@ -1,6 +1,6 @@
 {% extends 'Plantilla_base.html' %}
 
-{% block TitlePage %} CONTROL ESCOLAR - NUEVA MATERIA {% endblock TitlePage %}
+{% block TitlePage %} CONTROL ESCOLAR - EDITAR MATERIA {% endblock TitlePage %}
 
 {% block headers %}
     <!-- --------------------------------------------------- -->
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/dist/libs/select2/dist/css/select2.min.css">
 {% endblock headers %}
 
-{% block Titulo_Principal %} NUEVA MATERIA {% endblock Titulo_Principal %}
+{% block Titulo_Principal %} EDITAR MATERIA {% endblock Titulo_Principal %}
 
 {% block Titulo_Secundario %}
 
@@ -32,22 +32,30 @@
 
 {% block Contenido%}
 
-<form action="{% url 'nueva_materia' %}" method="POST" enctype="multipart/form-data">
+<form action="{% url 'edicion_materia' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <!-- {{  formularioMateria }} -->
 
+
+     <div class="row">
+         <div class="col-md-12">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="id_materia" id="id_id_materia" maxlength="80" required readonly value="{{materia.id}}">
+            <label for="id_materia">Materia ID</label>
+          </div>
+        </div>
+     </div>
    <div class="row">
         <div class="col-md-5">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="materia" id="id_materia" maxlength="80" required placeholder="Ingresa el nombre de la materia">
-            <label for="id_materia">Nombre de la materia</label>
+            <input type="text" class="form-control" name="materia" id="id_materia" maxlength="80" required placeholder="Ingresa el nombre de la materia" value="{{materia.materia}}">
+            <label for="id_materia">Nombre de la Materia</label>
           </div>
         </div>
 
         <div class="col-md-2">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="codigo_materia" id="id_codigo_materia" required maxlength="40" placeholder="Ingresa el código de la materia">
-            <label for="id_codigo_materia">Código de la materia</label>
+            <input type="text" class="form-control" name="codigo_materia" id="id_codigo_materia" required maxlength="40" placeholder="Ingresa el código de la materia" value="{{materia.codigo_materia}}">
+            <label for="id_codigo_materia">Código</label>
           </div>
         </div>
 
@@ -56,7 +64,11 @@
             <select class="form-select" id="id_id_ciclo_escolar" name="id_ciclo_escolar" required>
                 <option></option>
                 {% for ciclo in ciclos_escolares %}
-                    <option value="{{ ciclo.id }}">{{ ciclo }}</option>
+                    {% if materia.id_ciclo_escolar == ciclo %}
+                        <option value="{{ ciclo.id }}" selected>{{ ciclo }}</option>
+                    {% else %}
+                        <option value="{{ ciclo.id }}">{{ ciclo }}</option>
+                    {% endif %}
                 {% endfor %}
             </select>
             <label for="id_id_ciclo_escolar">Ciclo Escolar</label>
@@ -68,7 +80,7 @@
     <div class="row">
         <div class="col-md-12">
           <div class="form-floating mb-3">
-              <textarea class="form-control" name="detalles_materia" id="id_detalles_materia" required placeholder="Ingresa más información acerca de la materia"></textarea>
+              <textarea class="form-control" name="detalles_materia" id="id_detalles_materia" required placeholder="Ingresa más información acerca de la materia">{{materia.detalles_materia}}</textarea>
             <label for="id_detalles_materia">Detalles de la Materia</label>
           </div>
         </div>
@@ -85,7 +97,11 @@
             <select class="form-select select2" id="id_id_maestro" name="id_maestro" required style="width:100%">
                 <option></option>
                 {% for maestro in maestros %}
-                    <option value="{{ maestro.id }}">{{ maestro }}</option>
+                    {% if materia.id_maestro == maestro %}
+                        <option value="{{ maestro.id }}" selected>{{ maestro }}</option>
+                    {% else %}
+                        <option value="{{ maestro.id }}">{{ maestro }}</option>
+                    {% endif %}
                 {% endfor %}
             </select>
 
@@ -98,6 +114,15 @@
             <label for="id_foto_libro">Foto del Libro</label>
           </div>
         </div>
+    </div>
+
+    <div class="row">
+      <h6 class="mb-2">Imagen actual del Libro</h6>
+       <div class="col-6">
+          <a target="_blank" href="/media/{{ materia.foto_libro}}">
+              <img src="/media/{{ materia.foto_libro }}" alt="foto_perfil" class="rounded-2 img-fluid mb-6" style="width: 150px; height: 150px;">
+          </a>
+       </div>
     </div>
 
 

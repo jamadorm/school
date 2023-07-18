@@ -99,7 +99,7 @@
                   <th>Detalles de la Materia</th>
                   <th>Ciclo Escolar</th>
                   <th>Maestro</th>
-                  <th>Acciones</th>
+                  <th></th>
               </tr>
               <!-- end header -->
           </thead>
@@ -126,7 +126,7 @@
                               <a href="buscar_maestro?id={{ maestro.id }}" type="button" class="btn mb-1 btn-info btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver Detalles">
                                 <i class="fs-5 ti ti-id"></i>
                               </a>
-                              <a href="edicion_maestro/{{ maestro.id }}" type="button" class="btn mb-1 btn-warning btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar Registro">
+                              <a href="editar_materia/{{ materia.id }}" type="button" class="btn mb-1 btn-warning btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar Registro">
                                 <i class="fs-5 ti ti-edit"></i>
                               </a>
                               <a onclick="eliminar(this)" data-message="eliminar_maestro/{{ maestro.id }}" class="btn mb-1 btn-danger btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Eliminar Registro">
@@ -147,7 +147,7 @@
                   <th>Detalles de la Materia</th>
                   <th>Ciclo Escolar</th>
                   <th>Maestro</th>
-                  <th>Acciones</th>
+                  <th></th>
               </tr>
               <!-- end row -->
           </tfoot>

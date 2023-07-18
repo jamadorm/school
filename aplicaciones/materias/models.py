@@ -14,3 +14,7 @@ class Materia(models.Model):
     foto_libro = models.ImageField(upload_to="materias/", verbose_name="foto_libro", null=True, default="sin_foto_libro.png", blank=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.codigo_materia + " - " + self.materia
+
+
