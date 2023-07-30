@@ -10,7 +10,6 @@ class Materia(models.Model):
     codigo_materia = models.CharField(max_length=20)
     detalles_materia = models.TextField(null=True)
     id_ciclo_escolar = models.ForeignKey(CicloEscolar, on_delete=models.CASCADE)
-    id_maestro = models.ForeignKey(Maestro, on_delete=models.CASCADE)
     foto_libro = models.ImageField(upload_to="materias/", verbose_name="foto_libro", null=True, default="sin_foto_libro.png", blank=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 

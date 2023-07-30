@@ -1,6 +1,6 @@
 from django.forms import ModelForm, TextInput
 
-from aplicaciones.catalogos.models import CicloEscolar
+from aplicaciones.catalogos.models import CicloEscolar, Grado
 
 
 class CicloForm(ModelForm):
@@ -11,3 +11,10 @@ class CicloForm(ModelForm):
             'nombre': TextInput(attrs={'class': 'form-control'}),
             'apellido_paterno': TextInput(attrs={'class': 'form-control'}),
         }
+
+
+class GradoForm(ModelForm):
+    class Meta:
+        model = Grado
+        fields = '__all__'
+        widgets = {}

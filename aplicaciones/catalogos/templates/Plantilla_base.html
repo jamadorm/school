@@ -82,10 +82,13 @@
                   <span class="hide-menu">Catálogos</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
+                  <!-- ============================= -->
+                  <!-- CICLO ESCOLAR -->
+                  <!-- ============================= -->
                   <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
                       <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
+                        <i class="ti ti-arrow-badge-right-filled"></i>
                       </div>
                       <span class="hide-menu">Ciclo Escolar</span>
                     </a>
@@ -106,17 +109,40 @@
                           <span class="hide-menu">Nuevo Registro</span>
                         </a>
                       </li>
+                    </ul>
+                  </li>
+                  <!-- ============================= -->
+                  <!-- GRADO ESCOLAR -->
+                  <!-- ============================= -->
+                  <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
+                      <div class="round-16 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-arrow-badge-right-filled"></i>
+                      </div>
+                      <span class="hide-menu">Grado Escolar</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse two-level">
+                      <li class="sidebar-item">
+                        <a href="{% url 'listado_grados' %}" class="sidebar-link">
+                          <div class="round-16 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-circle"></i>
+                          </div>
+                          <span class="hide-menu">Listado</span>
+                        </a>
+                      </li>
+                      <li class="sidebar-item">
+                        <a href="{% url 'nuevo_grado_escolar' %}" class="sidebar-link">
+                          <div class="round-16 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-circle"></i>
+                          </div>
+                          <span class="hide-menu">Nuevo Registro</span>
+                        </a>
+                      </li>
 
                     </ul>
                   </li>
-				  <li class="sidebar-item">
-                    <a href="html/main/chart-apex-line.html" class="sidebar-link">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Otro catálogo</span>
-                    </a>
-                  </li>
+
+
                 </ul>
               </li>
               <!-- --------------------------------------------------- -->
@@ -179,14 +205,14 @@
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a href="{% url 'listado_tutores' %}" class="sidebar-link">
+                    <a href="html/main/chart-apex-line.html" class="sidebar-link">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
                       </div>
-                      <span class="hide-menu">Listado de Tutores</span>
+                      <span class="hide-menu">Buscar Tutor</span>
                     </a>
                   </li>
-				  <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a href="{% url 'nuevo_tutor' %}" class="sidebar-link">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
@@ -194,12 +220,12 @@
                       <span class="hide-menu">Nuevo Tutor</span>
                     </a>
                   </li>
-				  <li class="sidebar-item">
-                    <a href="html/main/chart-apex-line.html" class="sidebar-link">
+                  <li class="sidebar-item">
+                    <a href="{% url 'listado_tutores' %}" class="sidebar-link">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
                       </div>
-                      <span class="hide-menu">Información del Tutor</span>
+                      <span class="hide-menu">Listado de Tutores</span>
                     </a>
                   </li>
 
@@ -217,14 +243,14 @@
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a href="{% url 'listado_maestros'%}" class="sidebar-link">
+                    <a href="{% url 'buscar_maestro' %}" class="sidebar-link">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
                       </div>
-                      <span class="hide-menu">Listado de Maestros</span>
+                      <span class="hide-menu">Buscar Maestro</span>
                     </a>
                   </li>
-				  <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a href="{% url 'nuevo_maestro'%}" class="sidebar-link">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
@@ -232,12 +258,12 @@
                       <span class="hide-menu">Nuevo Maestro</span>
                     </a>
                   </li>
-				  <li class="sidebar-item">
-                    <a href="{% url 'buscar_maestro' %}" class="sidebar-link">
+                  <li class="sidebar-item">
+                    <a href="{% url 'listado_maestros'%}" class="sidebar-link">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
                       </div>
-                      <span class="hide-menu">Buscar Maestro</span>
+                      <span class="hide-menu">Listado de Maestros</span>
                     </a>
                   </li>
 
@@ -255,15 +281,15 @@
                   <span class="hide-menu">Materias</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a href="{% url 'listado_materias' %}" class="sidebar-link">
+				  <li class="sidebar-item">
+                    <a href="{% url 'buscar_materia' %}" class="sidebar-link">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
                       </div>
-                      <span class="hide-menu">Listado de Materias</span>
+                      <span class="hide-menu">Buscar Materia</span>
                     </a>
                   </li>
-				  <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a href="{% url 'nueva_materia' %}" class="sidebar-link">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
@@ -271,12 +297,12 @@
                       <span class="hide-menu">Nueva Materia</span>
                     </a>
                   </li>
-				  <li class="sidebar-item">
-                    <a href="{% url 'buscar_materia' %}" class="sidebar-link">
+                  <li class="sidebar-item">
+                    <a href="{% url 'listado_materias' %}" class="sidebar-link">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
                       </div>
-                      <span class="hide-menu">Buscar Materia</span>
+                      <span class="hide-menu">Listado de Materias</span>
                     </a>
                   </li>
 

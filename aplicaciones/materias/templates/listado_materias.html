@@ -59,6 +59,19 @@
                               }
                             })
                 }
+                else
+                    if( mensaje == "error") {
+                    Swal.fire({
+                          icon: 'error',
+                          title: '<i class="ti ti-edit"></i>' + 'Error',
+                          html: 'No se pudo guardar el registro.',
+                          timer: 3000,
+                          timerProgressBar: true,
+                          willClose: () => {
+
+                          }
+                        })
+                }
             </script>
 
         {% endfor %}
@@ -123,13 +136,13 @@
                       <td>{{ materia.id_maestro }}</td>
                       <td>
                           <div class="align-items-center">
-                              <a href="buscar_maestro?id={{ maestro.id }}" type="button" class="btn mb-1 btn-info btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver Detalles">
+                              <a href="buscar_materia?id={{ materia.id }}" type="button" class="btn mb-1 btn-info btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver Detalles">
                                 <i class="fs-5 ti ti-id"></i>
                               </a>
                               <a href="editar_materia/{{ materia.id }}" type="button" class="btn mb-1 btn-warning btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar Registro">
                                 <i class="fs-5 ti ti-edit"></i>
                               </a>
-                              <a onclick="eliminar(this)" data-message="eliminar_maestro/{{ maestro.id }}" class="btn mb-1 btn-danger btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Eliminar Registro">
+                              <a onclick="eliminar(this)" data-message="eliminar_materia/{{ materia.id }}" class="btn mb-1 btn-danger btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Eliminar Registro">
                                 <i class="fs-5 ti ti-trash-x-filled"></i>
                               </a>
                           </div>

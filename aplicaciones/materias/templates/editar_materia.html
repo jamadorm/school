@@ -37,11 +37,26 @@
 
 
      <div class="row">
-         <div class="col-md-12">
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="id_materia" id="id_id_materia" maxlength="80" required readonly value="{{materia.id}}">
-            <label for="id_materia">Materia ID</label>
-          </div>
+         <div class="col-md-6">
+              <div class="form-floating mb-3 mt-2">
+                <input type="text" class="form-control" name="id_materia" id="id_id_materia" maxlength="80" required readonly value="{{materia.id}}">
+                <label for="id_materia">Materia ID</label>
+              </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-floating">
+                <small>&nbsp;&nbsp;Grado Escolar</small>
+                <select class="form-select select2" id="id_id_grado" name="id_grado" required style="width:100%">
+                    <option></option>
+                    {% for grado in grados %}
+                        {% if materia.id_grado == grado %}
+                            <option value="{{ grado.id }}" selected>{{ grado }}</option>
+                        {% else %}
+                            <option value="{{ grado.id }}">{{ grado }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
         </div>
      </div>
    <div class="row">
@@ -84,10 +99,6 @@
             <label for="id_detalles_materia">Detalles de la Materia</label>
           </div>
         </div>
-
-
-
-
     </div>
 
     <div class="row">

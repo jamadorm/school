@@ -23,3 +23,14 @@ class Sexo(models.Model):
 
     def __str__(self):
         return self.sexo
+
+
+class Grado(models.Model):
+    grado = models.CharField(max_length=50)
+    subgrado = models.CharField(max_length=20, null=True)
+    comentarios = models.CharField(null=True, default="Sin comentarios.")
+
+    def __str__(self):
+        return self.grado, self.subgrado
+
+

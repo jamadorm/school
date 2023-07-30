@@ -66,7 +66,18 @@
   </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4">
+          <div class="form-floating mb-3">
+            <select class="form-select" id="id_id_grado" name="id_grado" required>
+                <option></option>
+                {% for grado in grados %}
+                    <option value="{{ grado.id }}">{{ grado }}</option>
+                {% endfor %}
+            </select>
+            <label for="id_id_grado">Grado Escolar</label>
+          </div>
+       </div>
+        <div class="col-md-8">
           <div class="form-floating mb-3">
               <textarea class="form-control" name="detalles_materia" id="id_detalles_materia" required placeholder="Ingresa más información acerca de la materia"></textarea>
             <label for="id_detalles_materia">Detalles de la Materia</label>
