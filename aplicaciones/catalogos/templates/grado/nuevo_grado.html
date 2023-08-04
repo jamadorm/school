@@ -22,25 +22,19 @@
 
 
 {% block Contenido%}
-<form action="{% url 'nuevo_grado_escolar'%}" method="POST">
+<form action="{% url 'nuevo_grado'%}" method="POST">
     {% csrf_token %}
 
    <div class="row">
     <div class="col-md-6">
       <div class="form-floating mb-3">
         <input type="text" class="form-control" name="grado" id="id_grado" required placeholder="Ingresa el nuevo Grado Escolar" maxlength="50">
-        <label for="id_grado">Grado Escolar</label>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control" name="subgrado" id="id_subgrado" required placeholder="Ingresa el Sub Grado Escolar" maxlength="50">
-        <label for="id_grado">Subgrado</label>
+        <label for="id_grado">Grado</label>
       </div>
     </div>
     <div class="col-md-12">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" name="comentarios" id="id_comentarios" placeholder="Comentarios">
+        <input type="text" class="form-control" name="comentarios" id="id_comentarios" placeholder="Comentarios" value="Sin comentarios.">
         <label for="id_comentarios">Comentarios</label>
       </div>
     </div>

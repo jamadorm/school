@@ -1,6 +1,6 @@
 {% extends 'Plantilla_Tabla.html' %}
 
-{% block TitlePage %} CONTROL ESCOLAR {% endblock TitlePage %}
+{% block TitlePage %} CONTROL ESCOLAR - CATALOGO DE GRUPOS {% endblock TitlePage %}
 
 {% block Nombre_Usuario %} Paulina Trejo {% endblock Nombre_Usuario %}
 
@@ -80,12 +80,12 @@
 
     <div class="row mb-4">
       <div class="col-sm-9">
-        <h5 class="card-title"> Listado de Grados Escolares </h5>
+        <h5 class="card-title"> Listado de Grupos </h5>
       </div>
 
       <div class="col-sm-3 text-right">
         <a class="btn btn-light-success text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro"
-                href="{% url 'nuevo_grado_escolar' %}">
+                href="{% url 'nuevo_grupo' %}">
           <i class="ti ti-text-plus fs-6"></i>Nuevo Registro
         </a>
       </div>
@@ -107,7 +107,6 @@
         <!-- header -->
         <tr>
             <th>ID</th>
-            <th>Grado Escolar</th>
             <th>Grupo</th>
             <th>Comentarios</th>
             <th>Acciones</th>
@@ -116,19 +115,18 @@
     </thead>
     <tbody>
 
-        {% for grado in grados %}
+        {% for grupo in grupos %}
             <tr>
-                <td>{{ grado.id }}</td>
-                <td>{{ grado.grado }}</td>
-                <td>{{ grado.subgrado }}</td>
-                <td>{{ grado.comentarios }}</td>
+                <td>{{ grupo.id }}</td>
+                <td>{{ grupo.grupo }}</td>
+                <td>{{ grupo.comentarios }}</td>
                 <td>
                     <div class="align-items-center">
-                        <a href="edicion_grado/{{ grado.id }}" type="button" class="btn mb-1 btn-warning btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar Registro">
+                        <a href="edicion_grupo/{{ grupo.id }}" type="button" class="btn mb-1 btn-warning btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar Registro">
                           <i class="fs-5 ti ti-edit"></i>
                         </a>
                         &nbsp;&nbsp;
-                        <a onclick="eliminar(this)" data-message="eliminar_grado/{{ grado.id }}" class="btn mb-1 btn-danger btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Eliminar Registro">
+                        <a onclick="eliminar(this)" data-message="eliminar_grupo/{{ grupo.id }}" class="btn mb-1 btn-danger btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Eliminar Registro">
                           <i class="fs-5 ti ti-trash-x-filled"></i>
                         </a>
                     </div>
@@ -141,7 +139,6 @@
         <!-- start row -->
         <tr>
             <th>ID</th>
-            <th>Grado Escolar</th>
             <th>Grupo</th>
             <th>Comentarios</th>
             <th>Acciones</th>

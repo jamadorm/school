@@ -1,0 +1,104 @@
+{% extends 'Plantilla_base.html' %}
+
+{% block TitlePage %} CONTROL ESCOLAR - NUEVO GRUPO ESCOLAR {% endblock TitlePage %}
+
+{% block headers %}
+    <!-- --------------------------------------------------- -->
+    <!-- Select2 -->
+    <!-- --------------------------------------------------- -->
+    <link rel="stylesheet" href="/static/dist/libs/select2/dist/css/select2.min.css">
+{% endblock headers %}
+
+{% block Titulo_Principal %} NUEVO GRUPO ESCOLAR {% endblock Titulo_Principal %}
+
+{% block Titulo_Secundario %}
+
+<div class="row mb-4">
+  <div class="col-sm-10">
+    <h5 class="card-title"> Ingresa los siguientes datos </h5>
+  </div>
+
+  <div class="col-sm-2 text-sm-left">
+    <a class="btn btn-light-primary text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro"
+            href="{% url 'listado_grado_grupo_escolar' %}">
+      <i class="ti ti-arrow-back-up me-2 fs-4"></i>Regresar al listado
+    </a>
+  </div>
+
+</div>
+{% endblock Titulo_Secundario %}
+
+
+
+{% block Contenido%}
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+     <!--{{  gradogrupoFormulario }}-->
+
+<div class="row">
+
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <small>&nbsp;&nbsp;Grado</small>
+        <select class="form-select select2" id="id_id_grado" name="id_grado" required>
+            <option value="" disabled selected>Seleccione el Grado...</option>
+            {% for grado in grados %}
+                <option value="{{ grado.id }}">{{ grado }}</option>
+            {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+          <small>&nbsp;&nbsp;Grupo</small>
+        <select class="form-select select2" id="id_id_grupo" name="id_grupo" required>
+            <option value="" disabled selected>Seleccione el Grupo...</option>
+            {% for grupo in grupos %}
+                <option value="{{ grupo.id }}">{{ grupo }}</option>
+            {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-floating mb-3">
+          <textarea class="form-control" name="comentarios" id="id_comentarios" required placeholder="Comentarios sobre la creación del grupo"></textarea>
+        <label for="id_comentarios">Comentarios</label>
+        </div>
+    </div>
+
+</div>
+
+    <div class="col-12">
+      <div class="d-md-flex align-items-center mt-3">
+        <div class="ms-auto mt-6 mt-md-0">
+          <button type="submit" class="btn btn-success font-medium rounded-pill px-3">
+            <div class="d-flex align-items-center">
+              <i class="ti ti-device-floppy me-2 fs-6"></i>
+              Guardar Registro
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+</form>
+
+
+{% endblock Contenido %}
+
+{% block scripts %}
+    <!-- ---------------------------------------------- -->
+    <!-- select2 page js files -->
+    <!-- ---------------------------------------------- -->
+
+    <script src="/static/dist/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/static/dist/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/static/dist/js/forms/select2.init.js"></script>
+
+    <!--script src="/static/dist/libs/jquery/dist/jquery.min.js"></script-->
+
+
+{% endblock scripts %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
-from .forms import CicloForm, GradoForm
-from .models import CicloEscolar, Grado
+from .forms import CicloForm, GradoForm, GrupoForm
+from .models import CicloEscolar, Grado, Grupo
 from django.contrib import messages
 
 
@@ -53,7 +53,7 @@ def ActualizarCiclo(request):
     else:
         return render(request, "listado_ciclo_escolar.html")
 
-
+# views GRADO
 def NuevoGrado(request):
     if request.method == 'POST':
         gradoFormulario = GradoForm(request.POST)
@@ -66,18 +66,17 @@ def NuevoGrado(request):
             return redirect('listado_grados')
     else:
         gradoFormulario = GradoForm()
-        return render(request,'grado/nuevo_grado.html', {'gradoFormulario': gradoFormulario})
+        return render(request, 'grado/nuevo_grado.html', {'gradoFormulario': gradoFormulario})
 
 
 def ListadoGrados(request):
     grados = Grado.objects.all()
-    return render(request,'grado/listado_grado_escolar.html', {'grados': grados})
+    return render(request, 'grado/listado_grado.html', {'grados': grados})
 
 
 def EdicionGrado(request, id):
     grado = Grado.objects.get(id=id)
-    gradoForm = GradoForm(instance=grado)
-    return render(request, 'grado/editar_grado.html', {'grado': grado, 'gradoForm': gradoForm})
+    return render(request, 'grado/editar_grado.html', {'grado': grado})
 
 
 def ActualizarGrado(request):
@@ -107,3 +106,57 @@ def EliminarGrado(request, id):
     return redirect('listado_grados')
 
 
+# views GRUPO
+def NuevoGrupo(request):
+    if request.method == 'POST':
+        grupoFormulario = GrupoForm(request.POST)
+        if grupoFormulario.is_valid():
+            grupoFormulario.save()
+            messages.success(request, 'new')
+            return redirect('listado_grupos')
+        else:
+            messages.success(request, 'error')
+            return redirect('listado_grupos')
+    else:
+        grupoFormulario = GrupoForm()
+        return render(request, 'grupos/nuevo_grupo.html', {'grupoFormulario': grupoFormulario})
+
+
+def ListadoGrupo(request):
+    grupos = Grupo.objects.all()
+    return render(request, 'grupos/listado_grupo.html', {'grupos': grupos})
+
+
+def EdicionGrupo(request, id):
+    grupo = Grupo.objects.get(id=id)
+    return render(request, 'grupos/editar_grupo.html', {'grupo': grupo})
+
+
+
+
+
+def ActualizarGrupo(request):
+    if request.method == 'POST':
+        id_grupo = request.POST['id']
+        print('id_grupo= ' + id_grupo)
+        grupo = Grupo.objects.get(id=id_grupo)
+        grupoForm = GrupoForm(request.POST, instance=grupo)
+        if grupoForm.is_valid():
+            grupoForm.save()
+            messages.success(request, 'edit')
+            return redirect('listado_grupos')
+        else:
+            print('Formulario inválido')
+            messages.success(request, 'error')
+            return redirect('listado_grupos')
+    else:
+        print('Formulario inválido')
+        messages.success(request, 'error')
+        return redirect('listado_grupos')
+
+
+def EliminarGrupo(request, id):
+    grupo = Grupo.objects.get(id=id)
+    grupo.delete()
+    messages.success(request, 'delete')
+    return redirect('listado_grupos')

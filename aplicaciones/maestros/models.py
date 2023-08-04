@@ -16,11 +16,13 @@ class Maestro(models.Model):
     telefono = models.CharField(max_length=15)
     tipo_sangre = models.ForeignKey(TipoSangre, on_delete=models.CASCADE)
     domicilio = models.TextField()
-    foto_perfil = models.ImageField(upload_to="alumnos/", verbose_name="foto_perfil", null=True, default="sin_foto.png", blank=True)
+    foto_perfil = models.ImageField(upload_to="alumnos/", verbose_name="foto_perfil", null=True, default="sin_foto.png",
+                                    blank=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     user_name = models.CharField(max_length=20)
     password_user = models.CharField(max_length=50)
+
     # ultima_modificacion = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
-        return self.nombre+" "+self.apellido_paterno+" "+self.apellido_materno
+        return self.nombre + " " + self.apellido_paterno + " " + self.apellido_materno

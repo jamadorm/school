@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'aplicaciones.alumnos',
     'aplicaciones.maestros',
     'aplicaciones.materias',
+    'aplicaciones.grados_escolares',
 ]
 
 MIDDLEWARE = [

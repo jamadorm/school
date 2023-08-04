@@ -43,6 +43,7 @@
     <!-- Preloader -->
     <div class="preloader">
       <img alt="loader" class="lds-ripple img-fluid" src="{% static 'dist/images/logos/favicon.png' %}">
+      <span class="visually-hidden">Loading...</span>
     </div>
     <!-- --------------------------------------------------- -->
     <!-- Body Wrapper -->
@@ -56,7 +57,7 @@
         <div>
           <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="{% url 'inicio'%}" class="text-nowrap logo-img">
-              <img alt="" class="dark-logo" src="{% static 'dist/images/logos/dark-logo.svg' %}" width="180">
+              <img alt="" class="dark-logo" src="{% static 'dist/images/logos/logo_liceo_2-removebg-preview.png' %}" width="180">
               <img alt="" class="light-logo" src="{% static 'dist/images/logos/light-logo.svg' %}" width="180">
             </a>
             <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -74,6 +75,9 @@
                 <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                 <span class="hide-menu">MENU</span>
               </li>
+              <!-- --------------------------------------------------- -->
+              <!-- MENU CATÁLOGOS -->
+              <!-- --------------------------------------------------- -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
                   <span class="d-flex">
@@ -112,14 +116,14 @@
                     </ul>
                   </li>
                   <!-- ============================= -->
-                  <!-- GRADO ESCOLAR -->
+                  <!-- CATÁLOGO GRADO -->
                   <!-- ============================= -->
                   <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-arrow-badge-right-filled"></i>
                       </div>
-                      <span class="hide-menu">Grado Escolar</span>
+                      <span class="hide-menu">Grados</span>
                     </a>
                     <ul aria-expanded="false" class="collapse two-level">
                       <li class="sidebar-item">
@@ -131,7 +135,37 @@
                         </a>
                       </li>
                       <li class="sidebar-item">
-                        <a href="{% url 'nuevo_grado_escolar' %}" class="sidebar-link">
+                        <a href="{% url 'nuevo_grado' %}" class="sidebar-link">
+                          <div class="round-16 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-circle"></i>
+                          </div>
+                          <span class="hide-menu">Nuevo Registro</span>
+                        </a>
+                      </li>
+
+                    </ul>
+                  </li>
+                  <!-- ============================= -->
+                  <!-- CATÁLOGO GRUPO -->
+                  <!-- ============================= -->
+                  <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
+                      <div class="round-16 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-arrow-badge-right-filled"></i>
+                      </div>
+                      <span class="hide-menu">Grupos</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse two-level">
+                      <li class="sidebar-item">
+                        <a href="{% url 'listado_grupos' %}" class="sidebar-link">
+                          <div class="round-16 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-circle"></i>
+                          </div>
+                          <span class="hide-menu">Listado</span>
+                        </a>
+                      </li>
+                      <li class="sidebar-item">
+                        <a href="{% url 'nuevo_grado' %}" class="sidebar-link">
                           <div class="round-16 d-flex align-items-center justify-content-center">
                             <i class="ti ti-circle"></i>
                           </div>
@@ -308,6 +342,46 @@
 
                 </ul>
               </li>
+
+              <!-- --------------------------------------------------- -->
+              <!-- MENU GRUPO ESCOLAR -->
+              <!-- --------------------------------------------------- -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
+                  <span class="d-flex">
+                    <i class="ti ti-brand-apple-podcast" stroke-width="2.25"></i>
+                  </span>
+                  <span class="hide-menu">Grupos Escolares</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a href="" class="sidebar-link">
+                      <div class="round-16 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-circle"></i>
+                      </div>
+                      <span class="hide-menu">Buscar Grupo Escolar</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="{% url 'nuevo_grupo_escolar' %}" class="sidebar-link">
+                      <div class="round-16 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-circle"></i>
+                      </div>
+                      <span class="hide-menu">Crear Grupo Escolar</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="{% url 'listado_grado_grupo_escolar' %}" class="sidebar-link">
+                      <div class="round-16 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-circle"></i>
+                      </div>
+                      <span class="hide-menu">Listado de Grupos E.</span>
+                    </a>
+                  </li>
+
+                </ul>
+              </li>
+
              
               
             </ul>

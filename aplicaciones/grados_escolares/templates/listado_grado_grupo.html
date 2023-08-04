@@ -1,6 +1,6 @@
 {% extends 'Plantilla_Tabla.html' %}
 
-{% block TitlePage %} CONTROL ESCOLAR - ALUMNOS {% endblock TitlePage %}
+{% block TitlePage %} CONTROL ESCOLAR - GRUPOS ESCOLARES {% endblock TitlePage %}
 
 {% block Nombre_Usuario %} Paulina Trejo {% endblock Nombre_Usuario %}
 
@@ -8,7 +8,7 @@
 
 {% block email %} paudamador@hotmail.com {% endblock email %}
 
-{% block Titulo_Principal %} LISTADO DE ALUMNOS{% endblock Titulo_Principal %}
+{% block Titulo_Principal %} LISTADO DE GRUPOS ESCOLARES {% endblock Titulo_Principal %}
 
 {% block Titulo_Secundario %}
     {% if messages %}
@@ -17,11 +17,7 @@
                 var mensaje = ""
                 mensaje = mensaje.concat("{{message}}");
 
-                if( mensaje == "lista_alumnos") {
-
-                }
-                else
-                    if( mensaje == "new") {
+                if( mensaje == "new") {
                     Swal.fire({
                           icon: 'success',
                           title: '<i class="ti ti-device-floppy"></i>' + 'Registro Guardado',
@@ -59,6 +55,19 @@
                               }
                             })
                 }
+                else
+                    if( mensaje == "error") {
+                    Swal.fire({
+                          icon: 'error',
+                          title: '<i class="ti ti-edit"></i>' + 'Error',
+                          html: 'No se pudo guardar el registro.',
+                          timer: 3000,
+                          timerProgressBar: true,
+                          willClose: () => {
+
+                          }
+                        })
+                }
             </script>
 
         {% endfor %}
@@ -66,14 +75,14 @@
 
 
     <div class="row mb-4">
-      <div class="col-sm-9">
-        <h5 class="card-title"> Listado de Alumnos </h5>
+      <div class="col-sm-10">
+        <h5 class="card-title"> Listado de Grupos Escolares </h5>
       </div>
 
-      <div class="col-sm-3 text-right">
+      <div class="col-sm-2 col-mb-3 text-right">
         <a class="btn btn-light-success text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro"
-                href="{% url 'nuevo_alumno' %}">
-          <i class="ti ti-text-plus fs-6"></i>Nuevo Alumno
+                href="{% url 'nuevo_grupo_escolar' %}">
+          <i class="ti ti-text-plus fs-6"></i>Nuevo Grupo Escolar
         </a>
       </div>
 
@@ -94,44 +103,42 @@
               <!-- header -->
               <tr>
                   <th>ID</th>
-                  <th>nombre</th>
-                  <th>Apellido Paterno</th>
-                  <th>Apellido Materno</th>
-                  <th>Fecha de Nacimiento</th>
-                  <!--th>Sexo</th-->
-                  <th>Email</th>
-                  <th>Acciones</th>
+                  <th>Grado</th>
+                  <th>Grupo</th>
+                  <th></th>
               </tr>
               <!-- end header -->
           </thead>
           <tbody>
 
-              {% for alumno in alumnos %}
+              {% for gradogrupo in gradogrupos %}
                   <tr>
-                      <td>{{ alumno.id }}</td>
+                      <td>{{ gradogrupo.id }}</td>
                       <td>
                             <div class="d-flex align-items-center">
-                              <a href="perfil_alumno/{{ alumno.id }}"><img src="/media/{{ alumno.foto_perfil }}" class="rounded-circle border border-2 border-primary" width="45" height="45"></a>
                               <div class="ms-3">
-                                <span class="fs-3 fw-normal mb-0">&nbsp;&nbsp; {{ alumno.nombre }}</span>
+                                <span class="fs-3 fw-normal mb-0">&nbsp;&nbsp; {{ gradogrupo.id_grado }}</span>
                               </div>
                             </div>
 
                       </td>
-                      <td>{{ alumno.apellido_paterno }}</td>
-                      <td>{{ alumno.apellido_materno }}</td>
-                      <td>{{ alumno.fecha_nacimiento }}</td>
-                      <!--td>{{ tutor.id_sexo }}</td-->
-                      <td>{{ alumno.email }}</td>
+                      <td>{{ gradogrupo.id_grupo }}</td>
+
                       <td>
                           <div class="align-items-center">
-                              <a href="perfil_alumno/{{ alumno.id }}" type="button" class="btn mb-1 btn-info btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver Detalles">
+                              <a href="asignar_alumnos/{{ gradogrupo.id }}"><img src="/static/dist/images/icons/new.png" class="btn mb-1 btn-circle d-inline-flex align-items-center justify-content-center" width="36px" height="36px" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Agregar Alumnos"></a>
+                              <img src="/static/dist/images/icons/add-group.png" class="btn mb-1 btn-circle d-inline-flex align-items-center justify-content-center" width="36px" height="36px" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Agregar Maestros"></a>
+                              <span>|&nbsp;&nbsp; </span>
+                              <img src="/static/dist/images/icons/students.png" class="btn mb-1 btn-circle d-inline-flex align-items-center justify-content-center" width="36px" height="36px" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver alumnos asignados">
+                              <img src="/static/dist/images/icons/teacher.png" class="btn mb-1 btn-circle d-inline-flex align-items-center justify-content-center" width="36px" height="36px" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver Maestros asignados">
+                              <span>|&nbsp;&nbsp; </span>
+                              <!--a-- href="buscar_materia?id={{ materia.id }}" type="button" class="btn mb-1 btn-info btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver Detalles">
                                 <i class="fs-5 ti ti-id"></i>
-                              </a>
-                              <a href="edicion_alumno/{{ alumno.id }}" type="button" class="btn mb-1 btn-warning btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar Registro">
+                              </a-->
+                              <a href="editar_materia/{{ materia.id }}" type="button" class="btn mb-1 btn-warning btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar Registro">
                                 <i class="fs-5 ti ti-edit"></i>
                               </a>
-                              <a onclick="eliminar(this)" data-message="eliminar_alumno/{{ alumno.id }}" class="btn mb-1 btn-danger btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Eliminar Registro">
+                              <a onclick="eliminar(this)" data-message="eliminar_materia/{{ materia.id }}" class="btn mb-1 btn-danger btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Eliminar Registro">
                                 <i class="fs-5 ti ti-trash-x-filled"></i>
                               </a>
                           </div>
@@ -144,13 +151,9 @@
               <!-- start row -->
               <tr>
                   <th>ID</th>
-                  <th>nombre</th>
-                  <th>Apellido Paterno</th>
-                  <th>Apellido Materno</th>
-                  <th>Fecha de Nacimiento</th>
-                  <!--th>Sexo</th-->
-                  <th>Email</th>
-                  <th>Acciones</th>
+                  <th>Grado</th>
+                  <th>Grupo</th>
+                  <th></th>
               </tr>
               <!-- end row -->
           </tfoot>

@@ -1,6 +1,6 @@
 {% extends 'Plantilla_base.html' %}
 
-{% block Titulo_Principal %} EDITAR GRADO ESCOLAR {% endblock Titulo_Principal %}
+{% block Titulo_Principal %} NUEVO GRUPO {% endblock Titulo_Principal %}
 
 {% block Titulo_Secundario %}
 
@@ -11,7 +11,7 @@
 
   <div class="col-sm-2 text-sm-left">
     <a class="btn btn-light-primary text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro"
-            href="{% url 'listado_grados' %}">
+            href="{% url 'listado_grupos' %}">
       <i class="ti ti-arrow-back-up me-2 fs-4"></i>Regresar al listado
     </a>
   </div>
@@ -22,26 +22,19 @@
 
 
 {% block Contenido%}
-<form action="{% url 'actualizar_grado'%}" method="POST">
+<form action="{% url 'nuevo_grupo'%}" method="POST">
     {% csrf_token %}
 
    <div class="row">
-    <div class="col-md-12">
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="id" id="id_id" required readonly value="{{ grado.id}}">
-            <label for="id_grado">ID</label>
-        </div>
-    </div>
     <div class="col-md-6">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" name="grado" id="id_grado" required placeholder="Ingresa el nuevo Grado" maxlength="50" value="{{ grado.grado}}">
-        <label for="id_grado">Grado</label>
+        <input type="text" class="form-control" name="grupo" id="id_grupo" required placeholder="Ingresa el nuevo Grupo" maxlength="50">
+        <label for="id_grupo">Grupo</label>
       </div>
     </div>
-
     <div class="col-md-12">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" name="comentarios" id="id_comentarios" required placeholder="Comentarios" value="{{ grado.comentarios}}">
+        <input type="text" class="form-control" name="comentarios" id="id_comentarios" placeholder="Comentarios" value="Sin comentarios.">
         <label for="id_comentarios">Comentarios</label>
       </div>
     </div>

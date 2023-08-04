@@ -1,6 +1,6 @@
 from django.forms import ModelForm, TextInput
 
-from aplicaciones.catalogos.models import CicloEscolar, Grado
+from aplicaciones.catalogos.models import CicloEscolar, Grado, Grupo
 
 
 class CicloForm(ModelForm):
@@ -16,5 +16,12 @@ class CicloForm(ModelForm):
 class GradoForm(ModelForm):
     class Meta:
         model = Grado
+        fields = '__all__'
+        widgets = {}
+
+
+class GrupoForm(ModelForm):
+    class Meta:
+        model = Grupo
         fields = '__all__'
         widgets = {}
