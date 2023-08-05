@@ -75,7 +75,7 @@
 
     <div class="col-md-4">
       <div class="form-floating mb-3">
-        <select class="form-select" id="id_id_sexo" name="id_sexo">
+        <select class="form-select" id="id_id_sexo" name="id_sexo" required>
             <option selected>Seleccione el sexo...</option>
             {% for sexo in cat_sexo %}
                 <option value="{{ sexo.id }}">{{ sexo }}</option>
@@ -103,7 +103,7 @@
 
         <div class="col-md-4">
           <div class="form-floating mb-3">
-                <select name="tipo_sangre" id="id_tipo_sangre" class="select2 form-control">
+                <select name="tipo_sangre" id="id_tipo_sangre" class="select2 form-control" required>
                     <option selected>Seleccione el tipo de sangre...</option>
                     {% for ts in cat_tipo_sangre %}
                         <option value="{{ ts.id }}">{{ ts.tipo_sangre }}</option>

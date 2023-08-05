@@ -1,0 +1,146 @@
+{% extends 'Plantilla_Tabla.html' %}
+
+{% block TitlePage %} CONTROL ESCOLAR - LISTADO DE ALUMNOS {% endblock TitlePage %}
+
+{% block Nombre_Usuario %} Paulina Trejo {% endblock Nombre_Usuario %}
+
+{% block Puesto_Usuario %} Maestra {% endblock Puesto_Usuario %}
+
+{% block email %} paudamador@hotmail.com {% endblock email %}
+
+{% block Titulo_Principal %} LISTADO DE ALUMNOS{% endblock Titulo_Principal %}
+
+{% block Titulo_Secundario %}
+    {% if messages %}
+        {% for message in messages%}
+            <script language="JavaScript">
+                var mensaje = ""
+                mensaje = mensaje.concat("{{message}}");
+
+                if( mensaje == "lista_alumnos") {
+
+                }
+                else
+                    if( mensaje == "new") {
+                    Swal.fire({
+                          icon: 'success',
+                          title: '<i class="ti ti-device-floppy"></i>' + 'Registro Guardado',
+                          html: 'El registro se guardó correctamente.',
+                          timer: 3000,
+                          timerProgressBar: true,
+                          willClose: () => {
+
+                          }
+                        })
+                }
+                else
+                    if( mensaje == "edit") {
+                    Swal.fire({
+                          icon: 'success',
+                          title: '<i class="ti ti-edit"></i>' + 'Registro Actualizado',
+                          html: 'El registro se actualizó correctamente.',
+                          timer: 3000,
+                          timerProgressBar: true,
+                          willClose: () => {
+
+                          }
+                        })
+                }
+                else
+                    if( mensaje == "delete") {
+                        Swal.fire({
+                              icon: 'success',
+                              title: '<i class="ti ti-trash"></i>' + 'Registro Eliminado',
+                              html: 'El registro se eliminó correctamente.',
+                              timer: 2000,
+                              timerProgressBar: true,
+                              willClose: () => {
+
+                              }
+                            })
+                }
+            </script>
+
+        {% endfor %}
+    {% endif %}
+
+
+    <div class="row mb-4">
+      <div class="col-sm-9">
+        <h5 class="card-title">{{ listado_alumnos.id_grado_grupo }} </h5>
+      </div>
+
+      <div class="col-sm-2 text-sm-left">
+            <a class="btn btn-light-primary text-primary rounded-pill text-decoration-none btn-sm" title="Nuevo Registro" href="{% url 'listado_grado_grupo_escolar' %}">
+                <i class="ti ti-arrow-back-up me-2 fs-4"></i>Regresar al listado de Grupos Escolares
+            </a>
+        </div>
+
+    </div>
+
+{% endblock Titulo_Secundario %}
+
+
+    
+{% block Contenido%}
+
+<div class="table-responsive">
+    <div class="dataTables_scroll">
+        <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+
+          <table id="file_export" class="table border table-striped table-bordered display text-nowrap datatable" style="width: 100%;">
+          <thead>
+              <!-- header -->
+              <tr>
+                  <th>ID</th>
+                  <th>nombre</th>
+                  <th>Acciones</th>
+              </tr>
+              <!-- end header -->
+          </thead>
+          <tbody>
+
+              {% for alumno in listado_alumnos %}
+                  <tr>
+                      <td>{{ alumno.id_alumno_id }}</td>
+                      <td>
+                            {{ alumno }}
+                      </td>
+                      <td>
+                          <div class="align-items-center">
+                              <a href="/alumnos/perfil_alumno/{{ alumno.id_alumno_id }}" type="button" target="_blank" class="btn mb-1 btn-info btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver Detalles">
+                                <i class="fs-5 ti ti-id"></i>
+                              </a>
+                              <a href="/alumnos/edicion_alumno/{{ alumno.id_alumno_id }}" type="button" target="_blank" class="btn mb-1 btn-warning btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar Registro">
+                                <i class="fs-5 ti ti-edit"></i>
+                              </a>
+                              <a onclick="eliminar(this)" data-message="/alumnos/eliminar_alumno/{{ alumno.id_alumno_id }}" class="btn mb-1 btn-danger btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Eliminar Registro">
+                                <i class="fs-5 ti ti-trash-x-filled"></i>
+                              </a>
+                          </div>
+                      </td>
+                  </tr>
+              {% endfor %}
+
+          </tbody>
+          <tfoot>
+              <!-- start row -->
+              <tr>
+                  <th>ID</th>
+                  <th>nombre</th>
+                  <th>Acciones</th>
+              </tr>
+              <!-- end row -->
+          </tfoot>
+          </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock Contenido%}
+
+

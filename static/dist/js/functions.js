@@ -70,3 +70,56 @@ function validar_re_pass(pass1,pass2)
                     }
             }
     }
+
+
+
+//Funciones para manipulación de registros en tablas
+
+function deleteRow(element){
+        var i = element.parentNode.parentNode.parentNode.rowIndex;
+        var select = document.getElementById('id_alumno_select');
+
+        id_alumno = document.getElementById("tabla_alumnos").rows[i].cells[0].innerText;
+        nombre_alumno = document.getElementById("tabla_alumnos").rows[i].cells[1].innerText;
+        //alert(nombre_alumno);
+
+        const option = document.createElement('option');
+        option.value = id_alumno;
+        option.text = nombre_alumno;
+        select.appendChild(option); //insertamos el elemento
+	    select.value = id_alumno;  //insertamos el valor
+
+        document.getElementById("tabla_alumnos").deleteRow(i);
+    }
+
+    function valorSelect(){
+        var select = document.getElementById('id_alumno_select');
+        //alert(select.value);
+        var selected = select.options[select.selectedIndex].text;
+        alert(selected);
+
+    }
+
+    function AgregarAlumno(){
+        var select = document.getElementById('id_alumno_select');
+        var id_alumno = select.value;
+        var datos_alumno = select.options[select.selectedIndex].text;
+        select.options[select.selectedIndex].remove();
+
+        document.getElementById('tabla_alumnos').insertRow(-1).innerHTML = '<td>' + id_alumno + '</td>' +
+
+                              '<td>' + datos_alumno + '</td>' +
+                              '<td>' +
+                                  '<div class="align-items-center">' +
+                                        '<input type="hidden" id="id_id_alumno" name="id_alumno[]" value="' + id_alumno + '">' +
+                                      '<a href="/alumnos/perfil_alumno/' + id_alumno + '" target="_blank" type="button" class="btn mb-1 btn-light-primary btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Ver Detalles">' +
+                                        '<i class="fs-5 ti ti-id text-primary"></i>' +
+                                      '</a>' +
+                                      '<a onclick="deleteRow(this)" class="btn mb-1 btn-light-danger delete btn-circle btn-sm d-inline-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Quitar del listado">' +
+                                        '<i class="fs-5 ti ti-trash-x-filled text-primary"></i>' +
+                                      '</a>' +
+                                  '</div>' +
+                              '</td>';
+
+
+    }

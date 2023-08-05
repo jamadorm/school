@@ -72,8 +72,8 @@ def EliminarAlumno(request, id):
 def PerfilAlumno(request, id):
     alumno = Alumno.objects.get(id=id)
     tutores = AlumnoTutores.objects.filter(id_alumno=id)
-    print("* * * * * TUTORES * * * * * ")
-    print(tutores.values())
+    # print("* * * * * TUTORES * * * * * ")
+    # print(tutores.values())
     return render(request, 'perfil_alumno.html', {"alumno": alumno, "tutores": tutores})
 
 

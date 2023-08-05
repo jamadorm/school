@@ -25,6 +25,9 @@ class GradoGrupoAlumnos(models.Model):
     def __str__(self):
         return self.id_grado_grupo.__str__() + " / " + self.id_alumno.__str__()
 
+    def mostrar_alumnos(self):
+        return self.id_alumno.__str__()
+
 
 class GradoGrupoMaestros(models.Model):
     id_grado_grupo = models.ForeignKey(GradoGrupo, on_delete=models.DO_NOTHING)

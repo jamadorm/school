@@ -6,6 +6,20 @@
 /*************************************************************************************/
 
 //=============================================//
+//    Setting defaults                         //
+//=============================================//
+var defaults = {
+  searching: true,
+  ordering: true,
+  scrollX: true,
+  responsive: true,
+  show_hide_col:true,
+};
+
+$("#setting_defaults").dataTable($.extend(true, {}, defaults, {}));
+
+
+//=============================================//
 //    File export                              //
 //=============================================//
 $("#file_export").DataTable({
@@ -139,15 +153,6 @@ $("#complex_head_col").DataTable({
   ],
 });
 
-//=============================================//
-//    Setting defaults                         //
-//=============================================//
-var defaults = {
-  searching: false,
-  ordering: false,
-};
-
-$("#setting_defaults").dataTable($.extend(true, {}, defaults, {}));
 
 //=============================================//
 //    Footer callback                          //
@@ -194,7 +199,7 @@ $("#footer_callback").DataTable({
 //=============================================//
 
 $("#custom_tool_ele").DataTable({
-  dom: '<"toolbar">frtip',
+  dom: '<"toolbar">frtip    ',
 });
 
 $("div.toolbar").html("<b>Custom tool bar! Text/images etc.</b>");
